@@ -180,6 +180,27 @@
              </property>
             </spacer>
            </item>
+           <item>
+            <widget class="QLabel" name="cpuLabel">
+             <property name="text">
+              <string>CPU Used : 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="ramLabel">
+             <property name="text">
+              <string>RAM Used : 0</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="profitLabel">
+             <property name="text">
+              <string>Max Profit : 0</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -195,7 +216,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>33</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>

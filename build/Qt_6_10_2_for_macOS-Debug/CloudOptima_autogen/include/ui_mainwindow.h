@@ -45,6 +45,9 @@ public:
     QLabel *overviewLabel;
     QTableWidget *taskTable;
     QSpacerItem *verticalSpacer_2;
+    QLabel *cpuLabel;
+    QLabel *ramLabel;
+    QLabel *profitLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -145,6 +148,21 @@ public:
 
         verticalLayout_3->addItem(verticalSpacer_2);
 
+        cpuLabel = new QLabel(mainPanel);
+        cpuLabel->setObjectName("cpuLabel");
+
+        verticalLayout_3->addWidget(cpuLabel);
+
+        ramLabel = new QLabel(mainPanel);
+        ramLabel->setObjectName("ramLabel");
+
+        verticalLayout_3->addWidget(ramLabel);
+
+        profitLabel = new QLabel(mainPanel);
+        profitLabel->setObjectName("profitLabel");
+
+        verticalLayout_3->addWidget(profitLabel);
+
 
         verticalLayout_4->addLayout(verticalLayout_3);
 
@@ -159,7 +177,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 33));
+        menubar->setGeometry(QRect(0, 0, 800, 30));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -186,6 +204,9 @@ public:
         ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "RAM", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = taskTable->horizontalHeaderItem(3);
         ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Profit", nullptr));
+        cpuLabel->setText(QCoreApplication::translate("MainWindow", "CPU Used : 0", nullptr));
+        ramLabel->setText(QCoreApplication::translate("MainWindow", "RAM Used : 0", nullptr));
+        profitLabel->setText(QCoreApplication::translate("MainWindow", "Max Profit : 0", nullptr));
     } // retranslateUi
 
 };

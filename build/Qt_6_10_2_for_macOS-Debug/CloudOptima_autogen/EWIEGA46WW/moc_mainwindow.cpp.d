@@ -704,6 +704,7 @@
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/limits.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/ptrcheck.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdarg.h \
+  /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QVector \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/q17memory.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/q20functional.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/q20iterator.h \
@@ -828,6 +829,7 @@
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qutf8stringview.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qvariant.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qvarlengtharray.h \
+  /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qvector.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qversiontagging.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qxptype_traits.h \
   /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qyieldcpu.h \

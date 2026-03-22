@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QVector>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -9,9 +10,17 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+struct Task {
+    int id;
+    int cpu;
+    int ram;
+    int profit;
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    QVector<Task> tasks;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -20,6 +29,8 @@ public:
 private slots:
     void onAddTaskClicked();
     void onResetClicked();
+    void extractTasksFromTable();
+    void onRunClicked();
 
 private:
     Ui::MainWindow *ui;
