@@ -25,17 +25,15 @@ QT_BEGIN_NAMESPACE
 class Ui_AddTaskDialog
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QLabel *taskIdLabel;
-    QSpinBox *taskIdSpin;
     QLabel *cpuLabel;
     QSpinBox *cpuSpin;
-    QLabel *ramLabel;
-    QSpinBox *ramSpin;
-    QLabel *profitLabel;
     QSpinBox *profitSpin;
+    QLabel *profitLabel;
+    QSpinBox *ramSpin;
+    QLabel *ramLabel;
     QHBoxLayout *horizontalLayout;
     QPushButton *cancelBtn;
     QPushButton *okBtn;
@@ -45,69 +43,58 @@ public:
         if (AddTaskDialog->objectName().isEmpty())
             AddTaskDialog->setObjectName("AddTaskDialog");
         AddTaskDialog->resize(400, 300);
-        widget = new QWidget(AddTaskDialog);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(40, 30, 218, 160));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(AddTaskDialog);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(40, 30, 218, 160));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        taskIdLabel = new QLabel(widget);
-        taskIdLabel->setObjectName("taskIdLabel");
-        taskIdLabel->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
-
-        gridLayout->addWidget(taskIdLabel, 0, 0, 1, 1);
-
-        taskIdSpin = new QSpinBox(widget);
-        taskIdSpin->setObjectName("taskIdSpin");
-
-        gridLayout->addWidget(taskIdSpin, 0, 1, 1, 1);
-
-        cpuLabel = new QLabel(widget);
+        cpuLabel = new QLabel(layoutWidget);
         cpuLabel->setObjectName("cpuLabel");
         cpuLabel->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
 
-        gridLayout->addWidget(cpuLabel, 1, 0, 1, 1);
+        gridLayout->addWidget(cpuLabel, 0, 0, 1, 1);
 
-        cpuSpin = new QSpinBox(widget);
+        cpuSpin = new QSpinBox(layoutWidget);
         cpuSpin->setObjectName("cpuSpin");
 
-        gridLayout->addWidget(cpuSpin, 1, 1, 1, 1);
+        gridLayout->addWidget(cpuSpin, 0, 1, 1, 1);
 
-        ramLabel = new QLabel(widget);
-        ramLabel->setObjectName("ramLabel");
-        ramLabel->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        profitSpin = new QSpinBox(layoutWidget);
+        profitSpin->setObjectName("profitSpin");
 
-        gridLayout->addWidget(ramLabel, 2, 0, 1, 1);
+        gridLayout->addWidget(profitSpin, 2, 1, 1, 1);
 
-        ramSpin = new QSpinBox(widget);
-        ramSpin->setObjectName("ramSpin");
-
-        gridLayout->addWidget(ramSpin, 2, 1, 1, 1);
-
-        profitLabel = new QLabel(widget);
+        profitLabel = new QLabel(layoutWidget);
         profitLabel->setObjectName("profitLabel");
         profitLabel->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
 
-        gridLayout->addWidget(profitLabel, 3, 0, 1, 1);
+        gridLayout->addWidget(profitLabel, 2, 0, 1, 1);
 
-        profitSpin = new QSpinBox(widget);
-        profitSpin->setObjectName("profitSpin");
+        ramSpin = new QSpinBox(layoutWidget);
+        ramSpin->setObjectName("ramSpin");
 
-        gridLayout->addWidget(profitSpin, 3, 1, 1, 1);
+        gridLayout->addWidget(ramSpin, 1, 1, 1, 1);
+
+        ramLabel = new QLabel(layoutWidget);
+        ramLabel->setObjectName("ramLabel");
+        ramLabel->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+
+        gridLayout->addWidget(ramLabel, 1, 0, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        cancelBtn = new QPushButton(widget);
+        cancelBtn = new QPushButton(layoutWidget);
         cancelBtn->setObjectName("cancelBtn");
 
         horizontalLayout->addWidget(cancelBtn);
 
-        okBtn = new QPushButton(widget);
+        okBtn = new QPushButton(layoutWidget);
         okBtn->setObjectName("okBtn");
 
         horizontalLayout->addWidget(okBtn);
@@ -124,10 +111,9 @@ public:
     void retranslateUi(QDialog *AddTaskDialog)
     {
         AddTaskDialog->setWindowTitle(QCoreApplication::translate("AddTaskDialog", "Dialog", nullptr));
-        taskIdLabel->setText(QCoreApplication::translate("AddTaskDialog", "Task ID:", nullptr));
         cpuLabel->setText(QCoreApplication::translate("AddTaskDialog", "CPU:", nullptr));
-        ramLabel->setText(QCoreApplication::translate("AddTaskDialog", "RAM:", nullptr));
         profitLabel->setText(QCoreApplication::translate("AddTaskDialog", "Profit:", nullptr));
+        ramLabel->setText(QCoreApplication::translate("AddTaskDialog", "RAM:", nullptr));
         cancelBtn->setText(QCoreApplication::translate("AddTaskDialog", "Cancel", nullptr));
         okBtn->setText(QCoreApplication::translate("AddTaskDialog", "OK", nullptr));
     } // retranslateUi

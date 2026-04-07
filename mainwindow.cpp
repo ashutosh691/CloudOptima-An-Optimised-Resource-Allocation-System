@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QColor>
 
+int MainWindow::tId = 1;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -100,6 +101,20 @@ void MainWindow::onRunClicked()
     ui->ramLabel->setText("RAM Used: " + QString::number(totalRAM));
     ui->profitLabel->setText("Max Profit: " + QString::number(totalProfit));
 
+    // Reset previous highlights
+    for (int i = 0; i < ui->taskTable->rowCount(); i++)
+    {
+        for (int j = 0; j < ui->taskTable->columnCount(); j++)
+        {
+            if (ui->taskTable->item(i, j))
+            {
+                ui->taskTable->item(i, j)->setBackground(Qt::transparent);
+                ui->taskTable->item(i, j)->setForeground(Qt::white); // for dark theme
+            }
+        }
+    }
+
+    // Highlighting
     QColor hColor(0, 180, 120);
 
     for (int idx : selected)
@@ -111,11 +126,20 @@ void MainWindow::onRunClicked()
     }
 
     // Show result
-    // QString result = "Selected Task IDs:\n";
+    // QString result;
 
-    // for (int idx : selected)
+    // for (int i = 0; i <= n; i++)
     // {
-    //     result += QString::number(tasks[idx].id) + "\n";
+    //     result += "\n===== Layer i = " + QString::number(i) + " =====\n";
+
+    //     for (int c = 0; c <= maxCPU; c++)
+    //     {
+    //         for (int r = 0; r <= maxRAM; r++)
+    //         {
+    //             result += QString::number(dp[i][c][r]).rightJustified(4, ' ');
+    //         }
+    //         result += "\n";
+    //     }
     // }
 
     // QMessageBox::information(this, "Result", result);
@@ -123,7 +147,10 @@ void MainWindow::onRunClicked()
 
 void MainWindow::onAddTaskClicked()
 {
-    AddTaskDialog dialog(this);
+    int maxCPU = 8;
+    int maxRAM = 16;
+
+    AddTaskDialog dialog(maxCPU, maxRAM, this);
 
     if (dialog.exec() == QDialog::Accepted)
     {
@@ -131,7 +158,9 @@ void MainWindow::onAddTaskClicked()
         ui->taskTable->insertRow(row);
 
         ui->taskTable->setItem(row, 0,
-                               new QTableWidgetItem(QString::number(dialog.getTaskId())));
+                               new QTableWidgetItem(QString::number(tId)));
+
+        ++tId;
 
         ui->taskTable->setItem(row, 1,
                                new QTableWidgetItem(QString::number(dialog.getCPU())));

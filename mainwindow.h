@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
     QVector<Task> tasks;
 
 public:
+    static int tId;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

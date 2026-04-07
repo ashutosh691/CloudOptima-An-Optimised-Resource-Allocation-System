@@ -12,10 +12,9 @@ class AddTaskDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddTaskDialog(QWidget *parent = nullptr);
+    explicit AddTaskDialog(int maxCPU, int maxRAM, QWidget *parent = nullptr);
     ~AddTaskDialog();
 
-    int getTaskId() const;
     int getCPU() const;
     int getRAM() const;
     int getProfit() const;
