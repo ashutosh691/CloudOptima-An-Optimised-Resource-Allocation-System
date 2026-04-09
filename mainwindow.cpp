@@ -25,6 +25,58 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::onAddTaskClicked()
+{
+    int maxCPU = 8;
+    int maxRAM = 16;
+
+    AddTaskDialog dialog(maxCPU, maxRAM, this);
+
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        int row = ui->taskTable->rowCount();
+        ui->taskTable->insertRow(row);
+
+        ui->taskTable->setItem(row, 0,
+                               new QTableWidgetItem(QString::number(tId)));
+
+        ++tId;
+
+        ui->taskTable->setItem(row, 1,
+                               new QTableWidgetItem(QString::number(dialog.getCPU())));
+
+        ui->taskTable->setItem(row, 2,
+                               new QTableWidgetItem(QString::number(dialog.getRAM())));
+
+        ui->taskTable->setItem(row, 3,
+                               new QTableWidgetItem(QString::number(dialog.getProfit())));
+    }
+}
+
+void MainWindow::onResetClicked()
+{
+    ui->taskTable->setRowCount(0);
+}
+
+void MainWindow::extractTasksFromTable()
+{
+    tasks.clear();
+
+    int rowCount = ui->taskTable->rowCount();
+
+    for (int i = 0; i < rowCount; i++)
+    {
+        Task t;
+
+        t.id = ui->taskTable->item(i, 0)->text().toInt();
+        t.cpu = ui->taskTable->item(i, 1)->text().toInt();
+        t.ram = ui->taskTable->item(i, 2)->text().toInt();
+        t.profit = ui->taskTable->item(i, 3)->text().toInt();
+
+        tasks.push_back(t);
+    }
+}
+
 void MainWindow::onRunClicked()
 {
     extractTasksFromTable();
@@ -170,69 +222,15 @@ void MainWindow::onRunClicked()
 
     // QMessageBox::information(this, "Result", result);
 
-    QString compare;
+    // QString compare;
 
-    compare += "DP Profit: " + QString::number(totalProfit) + "\n";
-    compare += "DP CPU: " + QString::number(totalCPU) + "\n";
-    compare += "DP RAM: " + QString::number(totalRAM) + "\n\n";
+    // compare += "DP Profit: " + QString::number(totalProfit) + "\n";
+    // compare += "DP CPU: " + QString::number(totalCPU) + "\n";
+    // compare += "DP RAM: " + QString::number(totalRAM) + "\n\n";
 
-    compare += "Greedy Profit: " + QString::number(gProfit) + "\n";
-    compare += "Greedy CPU: " + QString::number(gCPU) + "\n";
-    compare += "Greedy RAM: " + QString::number(gRAM) + "\n";
+    // compare += "Greedy Profit: " + QString::number(gProfit) + "\n";
+    // compare += "Greedy CPU: " + QString::number(gCPU) + "\n";
+    // compare += "Greedy RAM: " + QString::number(gRAM) + "\n";
 
-    QMessageBox::information(this, "Comparison", compare);
+    // QMessageBox::information(this, "Comparison", compare);
 }
-
-void MainWindow::onAddTaskClicked()
-{
-    int maxCPU = 8;
-    int maxRAM = 16;
-
-    AddTaskDialog dialog(maxCPU, maxRAM, this);
-
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        int row = ui->taskTable->rowCount();
-        ui->taskTable->insertRow(row);
-
-        ui->taskTable->setItem(row, 0,
-                               new QTableWidgetItem(QString::number(tId)));
-
-        ++tId;
-
-        ui->taskTable->setItem(row, 1,
-                               new QTableWidgetItem(QString::number(dialog.getCPU())));
-
-        ui->taskTable->setItem(row, 2,
-                               new QTableWidgetItem(QString::number(dialog.getRAM())));
-
-        ui->taskTable->setItem(row, 3,
-                               new QTableWidgetItem(QString::number(dialog.getProfit())));
-    }
-}
-
-void MainWindow::onResetClicked()
-{
-    ui->taskTable->setRowCount(0);
-}
-
-void MainWindow::extractTasksFromTable()
-{
-    tasks.clear();
-
-    int rowCount = ui->taskTable->rowCount();
-
-    for (int i = 0; i < rowCount; i++)
-    {
-        Task t;
-
-        t.id = ui->taskTable->item(i, 0)->text().toInt();
-        t.cpu = ui->taskTable->item(i, 1)->text().toInt();
-        t.ram = ui->taskTable->item(i, 2)->text().toInt();
-        t.profit = ui->taskTable->item(i, 3)->text().toInt();
-
-        tasks.push_back(t);
-    }
-}
-
-
