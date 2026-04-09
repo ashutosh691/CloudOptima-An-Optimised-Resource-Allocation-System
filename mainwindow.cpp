@@ -3,6 +3,7 @@
 #include "addtaskdialog.h"
 #include <QMessageBox>
 #include <QColor>
+#include <algorithm>
 
 int MainWindow::tId = 1;
 
@@ -86,6 +87,31 @@ void MainWindow::onRunClicked()
         }
     }
 
+    // Greedy
+    QVector<Task> greedyTasks = tasks;
+    std::sort(greedyTasks.begin(), greedyTasks.end(), [](const Task &a, const Task &b) {
+        double r1 = (double)a.profit / (a.cpu + a.ram);
+        double r2 = (double)b.profit / (b.cpu + b.ram);
+        return r1 > r2;
+    });
+
+    int gCPU = 0, gRAM = 0, gProfit = 0;
+    QVector<int> greedySelected;
+
+    for (int i = 0; i < greedyTasks.size(); i++)
+    {
+        Task t = greedyTasks[i];
+
+        if (gCPU + t.cpu <= maxCPU && gRAM + t.ram <= maxRAM)
+        {
+            gCPU += t.cpu;
+            gRAM += t.ram;
+            gProfit += t.profit;
+
+            greedySelected.push_back(t.id);
+        }
+    }
+
     int totalCPU = 0;
     int totalRAM = 0;
     int totalProfit = 0;
@@ -143,6 +169,18 @@ void MainWindow::onRunClicked()
     // }
 
     // QMessageBox::information(this, "Result", result);
+
+    QString compare;
+
+    compare += "DP Profit: " + QString::number(totalProfit) + "\n";
+    compare += "DP CPU: " + QString::number(totalCPU) + "\n";
+    compare += "DP RAM: " + QString::number(totalRAM) + "\n\n";
+
+    compare += "Greedy Profit: " + QString::number(gProfit) + "\n";
+    compare += "Greedy CPU: " + QString::number(gCPU) + "\n";
+    compare += "Greedy RAM: " + QString::number(gRAM) + "\n";
+
+    QMessageBox::information(this, "Comparison", compare);
 }
 
 void MainWindow::onAddTaskClicked()
