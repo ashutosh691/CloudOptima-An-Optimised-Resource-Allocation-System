@@ -11,7 +11,9 @@ qt_add_executable(CloudOptima
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    addtaskdialog.h addtaskdialog.cpp addtaskdialog.ui
+
+
+    build/Qt_6_10_2_for_macOS-Debug/CloudOptima.app/Contents/MacOS/profiles.txt
 
 )
 

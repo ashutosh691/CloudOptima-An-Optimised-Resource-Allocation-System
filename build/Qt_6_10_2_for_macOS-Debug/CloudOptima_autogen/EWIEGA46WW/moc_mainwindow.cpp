@@ -41,19 +41,19 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "MainWindow",
         "onAddTaskClicked",
         "",
+        "onRunClicked",
         "onResetClicked",
-        "extractTasksFromTable",
-        "onRunClicked"
+        "updateSimulation"
     };
 
     QtMocHelpers::UintData qt_methods {
         // Slot 'onAddTaskClicked'
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onResetClicked'
-        QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'extractTasksFromTable'
-        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onRunClicked'
+        QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onResetClicked'
+        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'updateSimulation'
         QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
@@ -79,9 +79,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->onAddTaskClicked(); break;
-        case 1: _t->onResetClicked(); break;
-        case 2: _t->extractTasksFromTable(); break;
-        case 3: _t->onRunClicked(); break;
+        case 1: _t->onRunClicked(); break;
+        case 2: _t->onResetClicked(); break;
+        case 3: _t->updateSimulation(); break;
         default: ;
         }
     }

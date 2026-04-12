@@ -73,14 +73,6 @@ build CMakeFiles/CloudOptima.dir/mainwindow.cpp.o: CXX_COMPILER__CloudOptima_uns
   OBJECT_DIR = CMakeFiles/CloudOptima.dir
   OBJECT_FILE_DIR = CMakeFiles/CloudOptima.dir
 
-build CMakeFiles/CloudOptima.dir/addtaskdialog.cpp.o: CXX_COMPILER__CloudOptima_unscanned_Debug /Users/ashutoshupreti/Desktop/QTP/CloudOptima/addtaskdialog.cpp || cmake_object_order_depends_target_CloudOptima
-  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/CloudOptima.dir/addtaskdialog.cpp.o.d
-  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CloudOptima_autogen/include -isystem /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Headers -iframework /Users/ashutoshupreti/Qt/6.10.2/macos/lib -isystem /Users/ashutoshupreti/Qt/6.10.2/macos/mkspecs/macx-clang -isystem /Users/ashutoshupreti/Qt/6.10.2/macos/include -isystem /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -isystem /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Headers
-  OBJECT_DIR = CMakeFiles/CloudOptima.dir
-  OBJECT_FILE_DIR = CMakeFiles/CloudOptima.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CloudOptima
@@ -89,7 +81,7 @@ build CMakeFiles/CloudOptima.dir/addtaskdialog.cpp.o: CXX_COMPILER__CloudOptima_
 #############################################
 # Link the executable CloudOptima.app/Contents/MacOS/CloudOptima
 
-build CloudOptima.app/Contents/MacOS/CloudOptima: CXX_EXECUTABLE_LINKER__CloudOptima_Debug CMakeFiles/CloudOptima.dir/CloudOptima_autogen/mocs_compilation.cpp.o CMakeFiles/CloudOptima.dir/main.cpp.o CMakeFiles/CloudOptima.dir/mainwindow.cpp.o CMakeFiles/CloudOptima.dir/addtaskdialog.cpp.o | /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore || CloudOptima_autogen CloudOptima_autogen_timestamp_deps
+build CloudOptima.app/Contents/MacOS/CloudOptima: CXX_EXECUTABLE_LINKER__CloudOptima_Debug CMakeFiles/CloudOptima.dir/CloudOptima_autogen/mocs_compilation.cpp.o CMakeFiles/CloudOptima.dir/main.cpp.o CMakeFiles/CloudOptima.dir/mainwindow.cpp.o | /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore || CloudOptima_autogen CloudOptima_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk
   LINK_LIBRARIES = -Wl,-rpath,/Users/ashutoshupreti/Qt/6.10.2/macos/lib  /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/QtWidgets  /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/QtGui  -framework AppKit  -framework OpenGL  -framework ImageIO  -framework Metal  /Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/QtCore  -framework IOKit  -framework DiskArbitration  -framework UniformTypeIdentifiers
   LINK_PATH = -F/Users/ashutoshupreti/Qt/6.10.2/macos/lib
@@ -175,7 +167,7 @@ build CloudOptima_autogen_timestamp_deps: phony
 #############################################
 # Utility command for CloudOptima_autogen
 
-build CloudOptima_autogen: phony CMakeFiles/CloudOptima_autogen CloudOptima_autogen/include/ui_mainwindow.h CloudOptima_autogen/include/ui_addtaskdialog.h CloudOptima_autogen/timestamp CloudOptima_autogen/mocs_compilation.cpp CloudOptima_autogen_timestamp_deps
+build CloudOptima_autogen: phony CMakeFiles/CloudOptima_autogen CloudOptima_autogen/include/ui_mainwindow.h CloudOptima_autogen/timestamp CloudOptima_autogen/mocs_compilation.cpp CloudOptima_autogen_timestamp_deps
 
 
 #############################################
@@ -192,7 +184,7 @@ build CloudOptima_autogen/timestamp CloudOptima_autogen/mocs_compilation.cpp | $
 #############################################
 # Phony custom command for CMakeFiles/CloudOptima_autogen
 
-build CMakeFiles/CloudOptima_autogen CloudOptima_autogen/include/ui_mainwindow.h CloudOptima_autogen/include/ui_addtaskdialog.h | ${cmake_ninja_workdir}CMakeFiles/CloudOptima_autogen ${cmake_ninja_workdir}CloudOptima_autogen/include/ui_mainwindow.h ${cmake_ninja_workdir}CloudOptima_autogen/include/ui_addtaskdialog.h: phony CloudOptima_autogen/timestamp || CloudOptima_autogen_timestamp_deps
+build CMakeFiles/CloudOptima_autogen CloudOptima_autogen/include/ui_mainwindow.h | ${cmake_ninja_workdir}CMakeFiles/CloudOptima_autogen ${cmake_ninja_workdir}CloudOptima_autogen/include/ui_mainwindow.h: phony CloudOptima_autogen/timestamp || CloudOptima_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.

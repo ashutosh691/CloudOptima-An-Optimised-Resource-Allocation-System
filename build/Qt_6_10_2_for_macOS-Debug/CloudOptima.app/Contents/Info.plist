@@ -10,7 +10,7 @@
 	<key>CFBundleName</key>
 	<string>CloudOptima</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.ash.Reminder.CloudOptima</string>
+	<string>com.ashutosh.CloudOptima</string>
 	<key>CFBundleExecutable</key>
 	<string>CloudOptima</string>
 

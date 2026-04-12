@@ -363,12 +363,6 @@
 	"HEADERS" : 
 	[
 		[
-			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/addtaskdialog.h",
-			"MU",
-			"EWIEGA46WW/moc_addtaskdialog.cpp",
-			null
-		],
-		[
 			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -433,11 +427,6 @@
 	"SETTINGS_FILE" : "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/CloudOptima_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[
-			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/addtaskdialog.cpp",
-			"MU",
-			null
-		],
 		[ "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/main.cpp", "MU", null ],
 		[
 			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.cpp",
