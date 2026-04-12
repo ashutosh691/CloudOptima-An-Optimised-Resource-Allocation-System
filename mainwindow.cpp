@@ -46,26 +46,27 @@ void MainWindow::onAddTaskClicked()
     int row = ui->taskTable->rowCount();
     ui->taskTable->insertRow(row);
 
-    // ID
     ui->taskTable->setItem(row, 0, new QTableWidgetItem(QString::number(tId)));
 
-    // Query ComboBox
     QComboBox *combo = new QComboBox();
+    combo->addItem("Select Query");
+    combo->setItemData(0, 0, Qt::UserRole - 1); // disable
+
     for (auto it = profileMap.begin(); it != profileMap.end(); ++it)
         combo->addItem(it.key());
 
+    combo->setCurrentIndex(0);
     ui->taskTable->setCellWidget(row, 1, combo);
 
-    // Empty placeholders
     for (int col = 2; col <= 5; col++)
         ui->taskTable->setItem(row, col, new QTableWidgetItem(""));
 
     ui->taskTable->setItem(row, 6, new QTableWidgetItem("Waiting"));
-    ui->taskTable->setItem(row, 7, new QTableWidgetItem("-")); // Server column
+    ui->taskTable->setItem(row, 7, new QTableWidgetItem("-"));
 
-    // Auto-fill
     connect(combo, &QComboBox::currentTextChanged, this, [=](QString text)
             {
+                if (text == "Select Query") return;
                 if (!profileMap.contains(text)) return;
 
                 Task t = profileMap[text];
@@ -92,6 +93,8 @@ void MainWindow::extractTasksFromTable()
         if (!combo) continue;
 
         QString query = combo->currentText();
+
+        if (query == "Select Query") continue;
         if (!profileMap.contains(query)) continue;
 
         Task t = profileMap[query];
@@ -121,6 +124,7 @@ void MainWindow::onRunClicked()
 // -------------------- SIMULATION --------------------
 void MainWindow::updateSimulation()
 {
+    // Step 1: Execute running tasks
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].status == "Running")
@@ -140,7 +144,6 @@ void MainWindow::updateSimulation()
                         s.usedStorage -= tasks[i].storage;
                         s.runningTasks.removeAll(i);
 
-                        // Clear server column
                         ui->taskTable->item(i, 7)->setText("-");
                         break;
                     }
@@ -149,6 +152,14 @@ void MainWindow::updateSimulation()
         }
     }
 
+    // Step 2: Allocate
+    allocateTasks();
+
+    // Step 3: Update UI
+    updateTableUI();
+    updateServerUI();
+
+    // Step 4: Check completion
     bool allDone = true;
 
     for (const auto &t : tasks)
@@ -164,7 +175,6 @@ void MainWindow::updateSimulation()
     {
         timer->stop();
 
-        // Reset servers
         for (auto &s : servers)
         {
             s.usedCPU = 0;
@@ -173,13 +183,8 @@ void MainWindow::updateSimulation()
             s.runningTasks.clear();
         }
 
-        // Reset UI
         updateServerUI();
     }
-
-    allocateTasks();
-    updateTableUI();
-    updateServerUI();
 }
 
 // -------------------- ALLOCATION --------------------
@@ -221,7 +226,6 @@ void MainWindow::allocateTasks()
 
             tasks[i].status = "Running";
 
-            // 🔥 Show assigned server
             ui->taskTable->item(i, 7)->setText("Server " + QString::number(s.id));
         }
     }
@@ -259,14 +263,20 @@ void MainWindow::initializeServers()
 // -------------------- SERVER UI --------------------
 void MainWindow::updateServerUI()
 {
+    // Server 1
     ui->cpuBar1->setValue(servers[0].usedCPU * 100 / servers[0].maxCPU);
     ui->ramBar1->setValue(servers[0].usedRAM * 100 / servers[0].maxRAM);
+    ui->storageBar1->setValue(servers[0].usedStorage * 100 / servers[0].maxStorage);
 
+    // Server 2
     ui->cpuBar2->setValue(servers[1].usedCPU * 100 / servers[1].maxCPU);
     ui->ramBar2->setValue(servers[1].usedRAM * 100 / servers[1].maxRAM);
+    ui->storageBar2->setValue(servers[1].usedStorage * 100 / servers[1].maxStorage);
 
+    // Server 3
     ui->cpuBar3->setValue(servers[2].usedCPU * 100 / servers[2].maxCPU);
     ui->ramBar3->setValue(servers[2].usedRAM * 100 / servers[2].maxRAM);
+    ui->storageBar3->setValue(servers[2].usedStorage * 100 / servers[2].maxStorage);
 }
 
 // -------------------- RESET --------------------
@@ -285,6 +295,7 @@ void MainWindow::loadProfiles()
 {
     QFile file(QCoreApplication::applicationDirPath() + "/profiles.txt");
 
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QMessageBox::critical(this, "Error", "profiles.txt not found");
@@ -295,7 +306,15 @@ void MainWindow::loadProfiles()
 
     while (!in.atEnd())
     {
-        QStringList p = in.readLine().split(",");
+        QString line = in.readLine().trimmed();
+
+        // Skip empty lines
+        if (line.isEmpty()) continue;
+
+        // Skip comments / headers
+        if (line.startsWith("#")) continue;
+
+        QStringList p = line.split(",");
         if (p.size() != 6) continue;
 
         Task t;
