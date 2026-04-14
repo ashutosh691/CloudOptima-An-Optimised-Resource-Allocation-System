@@ -709,11 +709,29 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CloudOptima_autogen/moc_predefs.h \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/graphdialog.cpp \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/graphdialog.h \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/main.cpp \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.cpp \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.h \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/statsdialog.cpp \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/statsdialog.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/QAbstractAxis \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/QAbstractSeries \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/QChartGlobal \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/QLineSeries \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/QXYSeries \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qabstractaxis.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qabstractseries.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qchartglobal.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qlineseries.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qtcharts-config.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qtchartsexports.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Versions/A/Headers/qxyseries.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QMap \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QObject \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QTimer \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QVariant \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/QVector \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/q17memory.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/q20functional.h \
@@ -848,6 +866,10 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qversiontagging.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qxptype_traits.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCore.framework/Versions/A/Headers/qyieldcpu.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/QBrush \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/QFont \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/QImage \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/QPen \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qaction.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qbitmap.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qbrush.h \
@@ -862,6 +884,7 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qkeysequence.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpaintdevice.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpalette.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpen.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpixelformat.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpixmap.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qpolygon.h \
@@ -873,7 +896,9 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qtguiglobal.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qtransform.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Versions/A/Headers/qwindowdefs.h \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/QDialog \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/QMainWindow \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/qdialog.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/qmainwindow.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/qsizepolicy.h \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework/Versions/A/Headers/qtabwidget.h \
@@ -927,6 +952,14 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/QtPublicWalkLibsHelpers.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/QtPublicWindowsHelpers.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/macos/Info.plist.app.in \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsAdditionalTargetInfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfig.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfigVersion.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfigVersionImpl.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsDependencies.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsTargets-relwithdebinfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsTargets.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsVersionlessAliasTargets.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Core/Qt6CoreAdditionalTargetInfo.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Core/Qt6CoreConfig.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Core/Qt6CoreConfigExtras.cmake \
@@ -1046,6 +1079,22 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets-relwithdebinfo.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLAdditionalTargetInfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfig.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfigVersion.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfigVersionImpl.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLDependencies.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLTargets-relwithdebinfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLTargets.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLVersionlessAliasTargets.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsAdditionalTargetInfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfig.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersion.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersionImpl.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsDependencies.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets-relwithdebinfo.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets.cmake \
+	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsVersionlessAliasTargets.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6QMacStylePluginAdditionalTargetInfo.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6QMacStylePluginConfig.cmake \
 	/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6QMacStylePluginTargets-relwithdebinfo.cmake \
@@ -1100,5 +1149,7 @@ CloudOptima_autogen/timestamp: \
 	/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/Platform/Darwin-Initialize.cmake \
 	/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/Platform/Darwin.cmake \
 	/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/Platform/UnixPaths.cmake \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/graphdialog.ui \
 	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.ui \
+	/Users/ashutoshupreti/Desktop/QTP/CloudOptima/statsdialog.ui \
 	/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/bin/cmake

@@ -99,6 +99,20 @@
              </property>
             </spacer>
            </item>
+           <item>
+            <widget class="QPushButton" name="statsBtn">
+             <property name="text">
+              <string>Show Stats</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="graphBtn">
+             <property name="text">
+              <string>Show Graph</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -140,7 +154,7 @@
               <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
              </property>
              <property name="columnCount">
-              <number>9</number>
+              <number>8</number>
              </property>
              <attribute name="horizontalHeaderCascadingSectionResizes">
               <bool>false</bool>
@@ -194,7 +208,6 @@
                <string>Server</string>
               </property>
              </column>
-             <column/>
             </widget>
            </item>
            <item>

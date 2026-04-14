@@ -26,7 +26,15 @@ struct Server {
     int id;
     int maxCPU, maxRAM, maxStorage;
     int usedCPU = 0, usedRAM = 0, usedStorage = 0;
+
     QVector<int> runningTasks;
+    QVector<int> allTasks;
+    QVector<int> cpuHistory;
+
+    int totalCPUHandled = 0;
+    int totalRAMHandled = 0;
+    int totalStorageHandled = 0;
+    int totalProfitEarned = 0;
 };
 
 class MainWindow : public QMainWindow
@@ -42,6 +50,8 @@ private slots:
     void onRunClicked();
     void onResetClicked();
     void updateSimulation();
+    void onStatsClicked();
+    void onGraphClicked();
 
 private:
     Ui::MainWindow *ui;
@@ -59,7 +69,6 @@ private:
     void updateServerUI();
     void loadProfiles();
 
-    // 🔥 NEW
     void extractTasksFromTable();
 };
 

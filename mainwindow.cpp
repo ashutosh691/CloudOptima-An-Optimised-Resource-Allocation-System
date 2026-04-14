@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "statsdialog.h"
+#include "graphdialog.h"
 #include <QMessageBox>
 #include <QColor>
 #include <QFile>
@@ -20,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->addTaskBtn, &QPushButton::clicked, this, &MainWindow::onAddTaskClicked);
     connect(ui->runAllocationBtn, &QPushButton::clicked, this, &MainWindow::onRunClicked);
     connect(ui->resetBtn, &QPushButton::clicked, this, &MainWindow::onResetClicked);
+    connect(ui->statsBtn, &QPushButton::clicked, this, &MainWindow::onStatsClicked);
+    connect(ui->graphBtn, &QPushButton::clicked, this, &MainWindow::onGraphClicked);
 
     // Table UI
     ui->taskTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -185,6 +189,11 @@ void MainWindow::updateSimulation()
 
         updateServerUI();
     }
+
+    for (auto &s : servers)
+    {
+        s.cpuHistory.push_back(s.usedCPU);
+    }
 }
 
 // -------------------- ALLOCATION --------------------
@@ -223,6 +232,7 @@ void MainWindow::allocateTasks()
             s.usedRAM += tasks[i].ram;
             s.usedStorage += tasks[i].storage;
             s.runningTasks.push_back(i);
+            s.allTasks.push_back(i);
 
             tasks[i].status = "Running";
 
@@ -327,4 +337,31 @@ void MainWindow::loadProfiles()
 
         profileMap[t.query] = t;
     }
+}
+
+// ---------------------- STATS ---------------------------
+void MainWindow::onStatsClicked()
+{
+    StatsDialog dialog(this);
+
+    dialog.setWindowTitle("System Statistics");
+
+    dialog.resize(800, 500);   // 900x600
+
+    dialog.setData(servers, tasks);
+    dialog.exec();
+}
+
+// ---------------------- GRAPHS --------------------------
+void MainWindow::onGraphClicked()
+{
+    GraphDialog dialog(this);
+
+    dialog.setWindowTitle("Real-Time Server Graph");
+    dialog.resize(800, 500);
+
+    // 🔥 FIX: pass pointer (VERY IMPORTANT)
+    dialog.setData(&servers);
+
+    dialog.exec();
 }

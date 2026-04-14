@@ -41,6 +41,8 @@ public:
     QPushButton *runAllocationBtn;
     QPushButton *resetBtn;
     QSpacerItem *verticalSpacer;
+    QPushButton *statsBtn;
+    QPushButton *graphBtn;
     QWidget *mainPanel;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
@@ -121,6 +123,16 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        statsBtn = new QPushButton(sidePanel);
+        statsBtn->setObjectName("statsBtn");
+
+        verticalLayout->addWidget(statsBtn);
+
+        graphBtn = new QPushButton(sidePanel);
+        graphBtn->setObjectName("graphBtn");
+
+        verticalLayout->addWidget(graphBtn);
+
 
         verticalLayout_2->addLayout(verticalLayout);
 
@@ -144,8 +156,8 @@ public:
         verticalLayout_3->addWidget(overviewLabel);
 
         taskTable = new QTableWidget(mainPanel);
-        if (taskTable->columnCount() < 9)
-            taskTable->setColumnCount(9);
+        if (taskTable->columnCount() < 8)
+            taskTable->setColumnCount(8);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         taskTable->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -167,7 +179,7 @@ public:
         taskTable->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         taskTable->setAlternatingRowColors(true);
         taskTable->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-        taskTable->setColumnCount(9);
+        taskTable->setColumnCount(8);
         taskTable->horizontalHeader()->setCascadingSectionResizes(false);
         taskTable->horizontalHeader()->setMinimumSectionSize(30);
         taskTable->horizontalHeader()->setDefaultSectionSize(73);
@@ -324,6 +336,8 @@ public:
         addTaskBtn->setText(QCoreApplication::translate("MainWindow", "Add Task", nullptr));
         runAllocationBtn->setText(QCoreApplication::translate("MainWindow", "Run Allocation", nullptr));
         resetBtn->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
+        statsBtn->setText(QCoreApplication::translate("MainWindow", "Show Stats", nullptr));
+        graphBtn->setText(QCoreApplication::translate("MainWindow", "Show Graph", nullptr));
         overviewLabel->setText(QCoreApplication::translate("MainWindow", "Task Overview", nullptr));
         QTableWidgetItem *___qtablewidgetitem = taskTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Task ID", nullptr));
