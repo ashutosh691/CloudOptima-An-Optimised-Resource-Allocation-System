@@ -11,11 +11,13 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
@@ -39,15 +41,35 @@ public:
     QPushButton *runAllocationBtn;
     QPushButton *resetBtn;
     QSpacerItem *verticalSpacer;
+    QPushButton *statsBtn;
+    QPushButton *graphBtn;
     QWidget *mainPanel;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
     QLabel *overviewLabel;
     QTableWidget *taskTable;
-    QSpacerItem *verticalSpacer_2;
-    QLabel *cpuLabel;
-    QLabel *ramLabel;
-    QLabel *profitLabel;
+    QVBoxLayout *verticalLayout_5;
+    QGroupBox *server1Box;
+    QVBoxLayout *verticalLayout_9;
+    QVBoxLayout *verticalLayout_6;
+    QLabel *server1Label;
+    QProgressBar *cpuBar1;
+    QProgressBar *ramBar1;
+    QProgressBar *storageBar1;
+    QGroupBox *server2Box;
+    QVBoxLayout *verticalLayout_10;
+    QVBoxLayout *verticalLayout_7;
+    QLabel *server2Label;
+    QProgressBar *cpuBar2;
+    QProgressBar *ramBar2;
+    QProgressBar *storageBar2;
+    QGroupBox *server3Box;
+    QVBoxLayout *verticalLayout_11;
+    QVBoxLayout *verticalLayout_8;
+    QLabel *server3Label;
+    QProgressBar *cpuBar3;
+    QProgressBar *ramBar3;
+    QProgressBar *storageBar3;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -101,6 +123,16 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        statsBtn = new QPushButton(sidePanel);
+        statsBtn->setObjectName("statsBtn");
+
+        verticalLayout->addWidget(statsBtn);
+
+        graphBtn = new QPushButton(sidePanel);
+        graphBtn->setObjectName("graphBtn");
+
+        verticalLayout->addWidget(graphBtn);
+
 
         verticalLayout_2->addLayout(verticalLayout);
 
@@ -124,8 +156,8 @@ public:
         verticalLayout_3->addWidget(overviewLabel);
 
         taskTable = new QTableWidget(mainPanel);
-        if (taskTable->columnCount() < 4)
-            taskTable->setColumnCount(4);
+        if (taskTable->columnCount() < 8)
+            taskTable->setColumnCount(8);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         taskTable->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -134,35 +166,144 @@ public:
         taskTable->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
         taskTable->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        taskTable->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        taskTable->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        taskTable->setHorizontalHeaderItem(6, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        taskTable->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         taskTable->setObjectName("taskTable");
+        taskTable->setSizeAdjustPolicy(QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored);
         taskTable->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         taskTable->setAlternatingRowColors(true);
         taskTable->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
-        taskTable->setColumnCount(4);
+        taskTable->setColumnCount(8);
         taskTable->horizontalHeader()->setCascadingSectionResizes(false);
-        taskTable->horizontalHeader()->setStretchLastSection(true);
+        taskTable->horizontalHeader()->setMinimumSectionSize(30);
+        taskTable->horizontalHeader()->setDefaultSectionSize(73);
+        taskTable->verticalHeader()->setMinimumSectionSize(20);
 
         verticalLayout_3->addWidget(taskTable);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName("verticalLayout_5");
+        server1Box = new QGroupBox(mainPanel);
+        server1Box->setObjectName("server1Box");
+        server1Box->setMinimumSize(QSize(0, 120));
+        verticalLayout_9 = new QVBoxLayout(server1Box);
+        verticalLayout_9->setObjectName("verticalLayout_9");
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setObjectName("verticalLayout_6");
+        server1Label = new QLabel(server1Box);
+        server1Label->setObjectName("server1Label");
 
-        verticalLayout_3->addItem(verticalSpacer_2);
+        verticalLayout_6->addWidget(server1Label);
 
-        cpuLabel = new QLabel(mainPanel);
-        cpuLabel->setObjectName("cpuLabel");
+        cpuBar1 = new QProgressBar(server1Box);
+        cpuBar1->setObjectName("cpuBar1");
+        cpuBar1->setValue(24);
 
-        verticalLayout_3->addWidget(cpuLabel);
+        verticalLayout_6->addWidget(cpuBar1);
 
-        ramLabel = new QLabel(mainPanel);
-        ramLabel->setObjectName("ramLabel");
+        ramBar1 = new QProgressBar(server1Box);
+        ramBar1->setObjectName("ramBar1");
+        ramBar1->setValue(24);
 
-        verticalLayout_3->addWidget(ramLabel);
+        verticalLayout_6->addWidget(ramBar1);
 
-        profitLabel = new QLabel(mainPanel);
-        profitLabel->setObjectName("profitLabel");
+        storageBar1 = new QProgressBar(server1Box);
+        storageBar1->setObjectName("storageBar1");
+        storageBar1->setValue(24);
 
-        verticalLayout_3->addWidget(profitLabel);
+        verticalLayout_6->addWidget(storageBar1);
 
+
+        verticalLayout_9->addLayout(verticalLayout_6);
+
+
+        verticalLayout_5->addWidget(server1Box);
+
+        server2Box = new QGroupBox(mainPanel);
+        server2Box->setObjectName("server2Box");
+        server2Box->setMinimumSize(QSize(0, 120));
+        verticalLayout_10 = new QVBoxLayout(server2Box);
+        verticalLayout_10->setObjectName("verticalLayout_10");
+        verticalLayout_7 = new QVBoxLayout();
+        verticalLayout_7->setObjectName("verticalLayout_7");
+        server2Label = new QLabel(server2Box);
+        server2Label->setObjectName("server2Label");
+
+        verticalLayout_7->addWidget(server2Label);
+
+        cpuBar2 = new QProgressBar(server2Box);
+        cpuBar2->setObjectName("cpuBar2");
+        cpuBar2->setValue(24);
+
+        verticalLayout_7->addWidget(cpuBar2);
+
+        ramBar2 = new QProgressBar(server2Box);
+        ramBar2->setObjectName("ramBar2");
+        ramBar2->setValue(24);
+
+        verticalLayout_7->addWidget(ramBar2);
+
+        storageBar2 = new QProgressBar(server2Box);
+        storageBar2->setObjectName("storageBar2");
+        storageBar2->setValue(24);
+
+        verticalLayout_7->addWidget(storageBar2);
+
+
+        verticalLayout_10->addLayout(verticalLayout_7);
+
+
+        verticalLayout_5->addWidget(server2Box);
+
+        server3Box = new QGroupBox(mainPanel);
+        server3Box->setObjectName("server3Box");
+        server3Box->setMinimumSize(QSize(0, 120));
+        verticalLayout_11 = new QVBoxLayout(server3Box);
+        verticalLayout_11->setObjectName("verticalLayout_11");
+        verticalLayout_8 = new QVBoxLayout();
+        verticalLayout_8->setObjectName("verticalLayout_8");
+        server3Label = new QLabel(server3Box);
+        server3Label->setObjectName("server3Label");
+
+        verticalLayout_8->addWidget(server3Label);
+
+        cpuBar3 = new QProgressBar(server3Box);
+        cpuBar3->setObjectName("cpuBar3");
+        cpuBar3->setValue(24);
+
+        verticalLayout_8->addWidget(cpuBar3);
+
+        ramBar3 = new QProgressBar(server3Box);
+        ramBar3->setObjectName("ramBar3");
+        ramBar3->setValue(24);
+
+        verticalLayout_8->addWidget(ramBar3);
+
+        storageBar3 = new QProgressBar(server3Box);
+        storageBar3->setObjectName("storageBar3");
+        storageBar3->setValue(24);
+
+        verticalLayout_8->addWidget(storageBar3);
+
+
+        verticalLayout_11->addLayout(verticalLayout_8);
+
+
+        verticalLayout_5->addWidget(server3Box);
+
+        verticalLayout_5->setStretch(0, 1);
+        verticalLayout_5->setStretch(1, 1);
+        verticalLayout_5->setStretch(2, 1);
+
+        verticalLayout_3->addLayout(verticalLayout_5);
+
+        verticalLayout_3->setStretch(2, 2);
 
         verticalLayout_4->addLayout(verticalLayout_3);
 
@@ -177,7 +318,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 30));
+        menubar->setGeometry(QRect(0, 0, 800, 33));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -195,18 +336,31 @@ public:
         addTaskBtn->setText(QCoreApplication::translate("MainWindow", "Add Task", nullptr));
         runAllocationBtn->setText(QCoreApplication::translate("MainWindow", "Run Allocation", nullptr));
         resetBtn->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
+        statsBtn->setText(QCoreApplication::translate("MainWindow", "Show Stats", nullptr));
+        graphBtn->setText(QCoreApplication::translate("MainWindow", "Show Graph", nullptr));
         overviewLabel->setText(QCoreApplication::translate("MainWindow", "Task Overview", nullptr));
         QTableWidgetItem *___qtablewidgetitem = taskTable->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Task ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = taskTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "CPU", nullptr));
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Query", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = taskTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "RAM", nullptr));
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "CPU", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = taskTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Profit", nullptr));
-        cpuLabel->setText(QCoreApplication::translate("MainWindow", "CPU Used : 0", nullptr));
-        ramLabel->setText(QCoreApplication::translate("MainWindow", "RAM Used : 0", nullptr));
-        profitLabel->setText(QCoreApplication::translate("MainWindow", "Max Profit : 0", nullptr));
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "RAM", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = taskTable->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Storage", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = taskTable->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Time", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = taskTable->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Status", nullptr));
+        QTableWidgetItem *___qtablewidgetitem7 = taskTable->horizontalHeaderItem(7);
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Server", nullptr));
+        server1Box->setTitle(QCoreApplication::translate("MainWindow", "Server 1", nullptr));
+        server1Label->setText(QCoreApplication::translate("MainWindow", "Server 1 Usage", nullptr));
+        server2Box->setTitle(QCoreApplication::translate("MainWindow", "Server 2", nullptr));
+        server2Label->setText(QCoreApplication::translate("MainWindow", "Server 2 Usage", nullptr));
+        server3Box->setTitle(QCoreApplication::translate("MainWindow", "Server 3", nullptr));
+        server3Label->setText(QCoreApplication::translate("MainWindow", "Server 3 Usage", nullptr));
     } // retranslateUi
 
 };

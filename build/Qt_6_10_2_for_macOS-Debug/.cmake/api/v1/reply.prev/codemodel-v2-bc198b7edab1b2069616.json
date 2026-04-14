@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-eac2cb9750871aeed0ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CloudOptima",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "CloudOptima::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CloudOptima-Debug-dbe52f10a4e32ed3a069.json",
+					"name" : "CloudOptima",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "CloudOptima_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CloudOptima_autogen-Debug-a2c10200b25f41b280f8.json",
+					"name" : "CloudOptima_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "CloudOptima_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CloudOptima_autogen_timestamp_deps-Debug-d77463e99ddbe30730f6.json",
+					"name" : "CloudOptima_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug",
+		"source" : "/Users/ashutoshupreti/Desktop/QTP/CloudOptima"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

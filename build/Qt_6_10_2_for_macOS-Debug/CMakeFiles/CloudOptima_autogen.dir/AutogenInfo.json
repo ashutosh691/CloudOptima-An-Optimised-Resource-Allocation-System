@@ -305,6 +305,33 @@
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6QMacStylePluginTargets-relwithdebinfo.cmake",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6QMacStylePluginAdditionalTargetInfo.cmake",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfigVersion.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfigVersionImpl.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsConfig.cmake",
+		"/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsDependencies.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfigVersion.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfigVersionImpl.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLConfig.cmake",
+		"/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLDependencies.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLTargets-relwithdebinfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLAdditionalTargetInfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGL/Qt6OpenGLVersionlessAliasTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersion.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersionImpl.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfig.cmake",
+		"/Users/ashutoshupreti/Qt/Tools/CMake/CMake.app/Contents/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsDependencies.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets-relwithdebinfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsAdditionalTargetInfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsVersionlessAliasTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsTargets.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsTargets-relwithdebinfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsAdditionalTargetInfo.cmake",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6Charts/Qt6ChartsVersionlessAliasTargets.cmake",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/Qt6ConfigVersion.cmake",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/Qt6ConfigVersionImpl.cmake",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/cmake/Qt6/Qt6Config.cmake",
@@ -363,9 +390,9 @@
 	"HEADERS" : 
 	[
 		[
-			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/addtaskdialog.h",
+			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/graphdialog.h",
 			"MU",
-			"EWIEGA46WW/moc_addtaskdialog.cpp",
+			"EWIEGA46WW/moc_graphdialog.cpp",
 			null
 		],
 		[
@@ -373,12 +400,26 @@
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
+		],
+		[
+			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/statsdialog.h",
+			"MU",
+			"EWIEGA46WW/moc_statsdialog.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CloudOptima_autogen/include",
 	"MOC_COMPILATION_FILE" : "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CloudOptima_autogen/mocs_compilation.cpp",
-	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_WIDGETS_LIB" ],
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CHARTS_LIB",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_OPENGLWIDGETS_LIB",
+		"QT_OPENGL_LIB",
+		"QT_WIDGETS_LIB"
+	],
 	"MOC_DEPEND_FILTERS" : 
 	[
 		[
@@ -396,6 +437,12 @@
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtWidgets.framework",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework/Headers",
 		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtGui.framework",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework/Headers",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtCharts.framework",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtOpenGL.framework/Headers",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtOpenGL.framework",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtOpenGLWidgets.framework/Headers",
+		"/Users/ashutoshupreti/Qt/6.10.2/macos/lib/QtOpenGLWidgets.framework",
 		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk/usr/include/c++/v1",
 		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include",
 		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk/usr/include",
@@ -434,13 +481,18 @@
 	"SOURCES" : 
 	[
 		[
-			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/addtaskdialog.cpp",
+			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/graphdialog.cpp",
 			"MU",
 			null
 		],
 		[ "/Users/ashutoshupreti/Desktop/QTP/CloudOptima/main.cpp", "MU", null ],
 		[
 			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/ashutoshupreti/Desktop/QTP/CloudOptima/statsdialog.cpp",
 			"MU",
 			null
 		]

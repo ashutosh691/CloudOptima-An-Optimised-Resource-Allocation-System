@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StatsDialog</class>
+ <widget class="QDialog" name="StatsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableWidget" name="statsTable">
+     <property name="rowCount">
+      <number>3</number>
+     </property>
+     <property name="columnCount">
+      <number>6</number>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>59</number>
+     </attribute>
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>48</number>
+     </attribute>
+     <row/>
+     <row/>
+     <row/>
+     <column>
+      <property name="text">
+       <string>Server</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Tasks</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>CPU</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>RAM</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Storage</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Profit</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

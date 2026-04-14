@@ -1,23 +1,42 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "addtaskdialog.h"
+#include "statsdialog.h"
+#include "graphdialog.h"
 #include <QMessageBox>
 #include <QColor>
-#include <algorithm>
+#include <QFile>
+#include <QTextStream>
+#include <QStringList>
+#include <QHeaderView>
+#include <QComboBox>
+#include <QCoreApplication>
+#include <climits>
 
 int MainWindow::tId = 1;
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->addTaskBtn, &QPushButton::clicked,
-            this, &MainWindow::onAddTaskClicked);
-    connect(ui->resetBtn, &QPushButton::clicked,
-            this, &MainWindow::onResetClicked);
-    connect(ui->runAllocationBtn, &QPushButton::clicked,
-            this, &MainWindow::onRunClicked);
+
+    connect(ui->addTaskBtn, &QPushButton::clicked, this, &MainWindow::onAddTaskClicked);
+    connect(ui->runAllocationBtn, &QPushButton::clicked, this, &MainWindow::onRunClicked);
+    connect(ui->resetBtn, &QPushButton::clicked, this, &MainWindow::onResetClicked);
+    connect(ui->statsBtn, &QPushButton::clicked, this, &MainWindow::onStatsClicked);
+    connect(ui->graphBtn, &QPushButton::clicked, this, &MainWindow::onGraphClicked);
+
+    // Table UI
+    ui->taskTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->taskTable->verticalHeader()->setVisible(false);
+    ui->taskTable->setAlternatingRowColors(true);
+    ui->taskTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->taskTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    loadProfiles();
+    initializeServers();
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::updateSimulation);
 }
 
 MainWindow::~MainWindow()
@@ -25,212 +44,324 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// -------------------- ADD TASK --------------------
 void MainWindow::onAddTaskClicked()
 {
-    int maxCPU = 8;
-    int maxRAM = 16;
+    int row = ui->taskTable->rowCount();
+    ui->taskTable->insertRow(row);
 
-    AddTaskDialog dialog(maxCPU, maxRAM, this);
+    ui->taskTable->setItem(row, 0, new QTableWidgetItem(QString::number(tId)));
 
-    if (dialog.exec() == QDialog::Accepted)
-    {
-        int row = ui->taskTable->rowCount();
-        ui->taskTable->insertRow(row);
+    QComboBox *combo = new QComboBox();
+    combo->addItem("Select Query");
+    combo->setItemData(0, 0, Qt::UserRole - 1); // disable
 
-        ui->taskTable->setItem(row, 0,
-                               new QTableWidgetItem(QString::number(tId)));
+    for (auto it = profileMap.begin(); it != profileMap.end(); ++it)
+        combo->addItem(it.key());
 
-        ++tId;
+    combo->setCurrentIndex(0);
+    ui->taskTable->setCellWidget(row, 1, combo);
 
-        ui->taskTable->setItem(row, 1,
-                               new QTableWidgetItem(QString::number(dialog.getCPU())));
+    for (int col = 2; col <= 5; col++)
+        ui->taskTable->setItem(row, col, new QTableWidgetItem(""));
 
-        ui->taskTable->setItem(row, 2,
-                               new QTableWidgetItem(QString::number(dialog.getRAM())));
+    ui->taskTable->setItem(row, 6, new QTableWidgetItem("Waiting"));
+    ui->taskTable->setItem(row, 7, new QTableWidgetItem("-"));
 
-        ui->taskTable->setItem(row, 3,
-                               new QTableWidgetItem(QString::number(dialog.getProfit())));
-    }
+    connect(combo, &QComboBox::currentTextChanged, this, [=](QString text)
+            {
+                if (text == "Select Query") return;
+                if (!profileMap.contains(text)) return;
+
+                Task t = profileMap[text];
+
+                ui->taskTable->item(row, 2)->setText(QString::number(t.cpu));
+                ui->taskTable->item(row, 3)->setText(QString::number(t.ram));
+                ui->taskTable->item(row, 4)->setText(QString::number(t.storage));
+                ui->taskTable->item(row, 5)->setText(QString::number(t.time));
+            });
+
+    tId++;
 }
 
-void MainWindow::onResetClicked()
-{
-    ui->taskTable->setRowCount(0);
-}
-
+// -------------------- EXTRACT --------------------
 void MainWindow::extractTasksFromTable()
 {
     tasks.clear();
 
-    int rowCount = ui->taskTable->rowCount();
+    int rows = ui->taskTable->rowCount();
 
-    for (int i = 0; i < rowCount; i++)
+    for (int i = 0; i < rows; i++)
     {
-        Task t;
+        QComboBox *combo = qobject_cast<QComboBox*>(ui->taskTable->cellWidget(i, 1));
+        if (!combo) continue;
+
+        QString query = combo->currentText();
+
+        if (query == "Select Query") continue;
+        if (!profileMap.contains(query)) continue;
+
+        Task t = profileMap[query];
 
         t.id = ui->taskTable->item(i, 0)->text().toInt();
-        t.cpu = ui->taskTable->item(i, 1)->text().toInt();
-        t.ram = ui->taskTable->item(i, 2)->text().toInt();
-        t.profit = ui->taskTable->item(i, 3)->text().toInt();
+        t.remainingTime = t.time;
+        t.status = "Waiting";
 
         tasks.push_back(t);
     }
 }
 
+// -------------------- RUN --------------------
 void MainWindow::onRunClicked()
 {
     extractTasksFromTable();
 
-    int maxCPU = 8;
-    int maxRAM = 16;
-
-    int n = tasks.size();
-
-    // DP + Take arrays
-    QVector<QVector<QVector<int>>> dp(
-        n + 1,
-        QVector<QVector<int>>(maxCPU + 1, QVector<int>(maxRAM + 1, 0))
-        );
-
-    QVector<QVector<QVector<bool>>> take(
-        n + 1,
-        QVector<QVector<bool>>(maxCPU + 1, QVector<bool>(maxRAM + 1, false))
-        );
-
-    // Fill DP
-    for (int i = 1; i <= n; i++)
+    if (tasks.isEmpty())
     {
-        Task t = tasks[i - 1];
+        QMessageBox::information(this, "Info", "No valid tasks");
+        return;
+    }
 
-        for (int c = 0; c <= maxCPU; c++)
+    timer->start(1000);
+}
+
+// -------------------- SIMULATION --------------------
+void MainWindow::updateSimulation()
+{
+    // Step 1: Execute running tasks
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        if (tasks[i].status == "Running")
         {
-            for (int r = 0; r <= maxRAM; r++)
+            tasks[i].remainingTime--;
+
+            if (tasks[i].remainingTime <= 0)
             {
-                dp[i][c][r] = dp[i - 1][c][r];
+                tasks[i].status = "Completed";
 
-                if (t.cpu <= c && t.ram <= r)
+                for (auto &s : servers)
                 {
-                    int val = t.profit + dp[i - 1][c - t.cpu][r - t.ram];
-
-                    if (val > dp[i][c][r])
+                    if (s.runningTasks.contains(i))
                     {
-                        dp[i][c][r] = val;
-                        take[i][c][r] = true;
+                        s.usedCPU -= tasks[i].cpu;
+                        s.usedRAM -= tasks[i].ram;
+                        s.usedStorage -= tasks[i].storage;
+                        s.runningTasks.removeAll(i);
+
+                        ui->taskTable->item(i, 7)->setText("-");
+                        break;
                     }
                 }
             }
         }
     }
 
-    // Backtracking
-    QVector<int> selected;
+    // Step 2: Allocate
+    allocateTasks();
 
-    int c = maxCPU;
-    int r = maxRAM;
+    // Step 3: Update UI
+    updateTableUI();
+    updateServerUI();
 
-    for (int i = n; i > 0; i--)
+    // Step 4: Check completion
+    bool allDone = true;
+
+    for (const auto &t : tasks)
     {
-        if (take[i][c][r])
+        if (t.status != "Completed")
         {
-            selected.push_back(i - 1);
-
-            c -= tasks[i - 1].cpu;
-            r -= tasks[i - 1].ram;
+            allDone = false;
+            break;
         }
     }
 
-    // Greedy
-    QVector<Task> greedyTasks = tasks;
-    std::sort(greedyTasks.begin(), greedyTasks.end(), [](const Task &a, const Task &b) {
-        double r1 = (double)a.profit / (a.cpu + a.ram);
-        double r2 = (double)b.profit / (b.cpu + b.ram);
-        return r1 > r2;
-    });
-
-    int gCPU = 0, gRAM = 0, gProfit = 0;
-    QVector<int> greedySelected;
-
-    for (int i = 0; i < greedyTasks.size(); i++)
+    if (allDone && !tasks.isEmpty())
     {
-        Task t = greedyTasks[i];
+        timer->stop();
 
-        if (gCPU + t.cpu <= maxCPU && gRAM + t.ram <= maxRAM)
+        for (auto &s : servers)
         {
-            gCPU += t.cpu;
-            gRAM += t.ram;
-            gProfit += t.profit;
-
-            greedySelected.push_back(t.id);
+            s.usedCPU = 0;
+            s.usedRAM = 0;
+            s.usedStorage = 0;
+            s.runningTasks.clear();
         }
+
+        updateServerUI();
     }
 
-    int totalCPU = 0;
-    int totalRAM = 0;
-    int totalProfit = 0;
-
-    for (int idx : selected)
+    for (auto &s : servers)
     {
-        totalCPU += tasks[idx].cpu;
-        totalRAM += tasks[idx].ram;
-        totalProfit += tasks[idx].profit;
+        s.cpuHistory.push_back(s.usedCPU);
     }
+}
 
-    ui->cpuLabel->setText("CPU Used: " + QString::number(totalCPU));
-    ui->ramLabel->setText("RAM Used: " + QString::number(totalRAM));
-    ui->profitLabel->setText("Max Profit: " + QString::number(totalProfit));
-
-    // Reset previous highlights
-    for (int i = 0; i < ui->taskTable->rowCount(); i++)
+// -------------------- ALLOCATION --------------------
+void MainWindow::allocateTasks()
+{
+    for (int i = 0; i < tasks.size(); i++)
     {
-        for (int j = 0; j < ui->taskTable->columnCount(); j++)
+        if (tasks[i].status != "Waiting") continue;
+
+        int best = -1, minWaste = INT_MAX;
+
+        for (int j = 0; j < servers.size(); j++)
         {
-            if (ui->taskTable->item(i, j))
+            auto &s = servers[j];
+
+            if (s.usedCPU + tasks[i].cpu <= s.maxCPU &&
+                s.usedRAM + tasks[i].ram <= s.maxRAM &&
+                s.usedStorage + tasks[i].storage <= s.maxStorage)
             {
-                ui->taskTable->item(i, j)->setBackground(Qt::transparent);
-                ui->taskTable->item(i, j)->setForeground(Qt::white); // for dark theme
+                int waste = (s.maxCPU - (s.usedCPU + tasks[i].cpu)) +
+                            (s.maxRAM - (s.usedRAM + tasks[i].ram));
+
+                if (waste < minWaste)
+                {
+                    minWaste = waste;
+                    best = j;
+                }
             }
         }
-    }
 
-    // Highlighting
-    QColor hColor(0, 180, 120);
-
-    for (int idx : selected)
-    {
-        for (int j = 0; j < ui->taskTable->columnCount(); j++)
+        if (best != -1)
         {
-            ui->taskTable->item(idx, j)->setBackground(hColor);
+            auto &s = servers[best];
+
+            s.usedCPU += tasks[i].cpu;
+            s.usedRAM += tasks[i].ram;
+            s.usedStorage += tasks[i].storage;
+            s.runningTasks.push_back(i);
+            s.allTasks.push_back(i);
+
+            tasks[i].status = "Running";
+
+            ui->taskTable->item(i, 7)->setText("Server " + QString::number(s.id));
         }
     }
+}
 
-    // Show result
-    // QString result;
+// -------------------- TABLE UI --------------------
+void MainWindow::updateTableUI()
+{
+    for (int i = 0; i < tasks.size(); i++)
+    {
+        auto *item = ui->taskTable->item(i, 6);
+        if (!item) continue;
 
-    // for (int i = 0; i <= n; i++)
-    // {
-    //     result += "\n===== Layer i = " + QString::number(i) + " =====\n";
+        item->setText(tasks[i].status);
 
-    //     for (int c = 0; c <= maxCPU; c++)
-    //     {
-    //         for (int r = 0; r <= maxRAM; r++)
-    //         {
-    //             result += QString::number(dp[i][c][r]).rightJustified(4, ' ');
-    //         }
-    //         result += "\n";
-    //     }
-    // }
+        if (tasks[i].status == "Running")
+            item->setBackground(QColor("#00c853"));
+        else if (tasks[i].status == "Completed")
+            item->setBackground(QColor("#616161"));
+        else
+            item->setBackground(QColor("#ffd600"));
+    }
+}
 
-    // QMessageBox::information(this, "Result", result);
+// -------------------- SERVER INIT --------------------
+void MainWindow::initializeServers()
+{
+    servers = {
+        {1, 8, 16, 100},
+        {2, 8, 16, 100},
+        {3, 16, 32, 200}
+    };
+}
 
-    // QString compare;
+// -------------------- SERVER UI --------------------
+void MainWindow::updateServerUI()
+{
+    // Server 1
+    ui->cpuBar1->setValue(servers[0].usedCPU * 100 / servers[0].maxCPU);
+    ui->ramBar1->setValue(servers[0].usedRAM * 100 / servers[0].maxRAM);
+    ui->storageBar1->setValue(servers[0].usedStorage * 100 / servers[0].maxStorage);
 
-    // compare += "DP Profit: " + QString::number(totalProfit) + "\n";
-    // compare += "DP CPU: " + QString::number(totalCPU) + "\n";
-    // compare += "DP RAM: " + QString::number(totalRAM) + "\n\n";
+    // Server 2
+    ui->cpuBar2->setValue(servers[1].usedCPU * 100 / servers[1].maxCPU);
+    ui->ramBar2->setValue(servers[1].usedRAM * 100 / servers[1].maxRAM);
+    ui->storageBar2->setValue(servers[1].usedStorage * 100 / servers[1].maxStorage);
 
-    // compare += "Greedy Profit: " + QString::number(gProfit) + "\n";
-    // compare += "Greedy CPU: " + QString::number(gCPU) + "\n";
-    // compare += "Greedy RAM: " + QString::number(gRAM) + "\n";
+    // Server 3
+    ui->cpuBar3->setValue(servers[2].usedCPU * 100 / servers[2].maxCPU);
+    ui->ramBar3->setValue(servers[2].usedRAM * 100 / servers[2].maxRAM);
+    ui->storageBar3->setValue(servers[2].usedStorage * 100 / servers[2].maxStorage);
+}
 
-    // QMessageBox::information(this, "Comparison", compare);
+// -------------------- RESET --------------------
+void MainWindow::onResetClicked()
+{
+    timer->stop();
+    tasks.clear();
+    ui->taskTable->setRowCount(0);
+    initializeServers();
+    tId = 1;
+    updateServerUI();
+}
+
+// -------------------- LOAD PROFILES --------------------
+void MainWindow::loadProfiles()
+{
+    QFile file(QCoreApplication::applicationDirPath() + "/profiles.txt");
+
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QMessageBox::critical(this, "Error", "profiles.txt not found");
+        return;
+    }
+
+    QTextStream in(&file);
+
+    while (!in.atEnd())
+    {
+        QString line = in.readLine().trimmed();
+
+        // Skip empty lines
+        if (line.isEmpty()) continue;
+
+        // Skip comments / headers
+        if (line.startsWith("#")) continue;
+
+        QStringList p = line.split(",");
+        if (p.size() != 6) continue;
+
+        Task t;
+        t.query = p[0];
+        t.cpu = p[1].toInt();
+        t.ram = p[2].toInt();
+        t.storage = p[3].toInt();
+        t.profit = p[4].toInt();
+        t.time = p[5].toInt();
+
+        profileMap[t.query] = t;
+    }
+}
+
+// ---------------------- STATS ---------------------------
+void MainWindow::onStatsClicked()
+{
+    StatsDialog dialog(this);
+
+    dialog.setWindowTitle("System Statistics");
+
+    dialog.resize(800, 500);   // 900x600
+
+    dialog.setData(servers, tasks);
+    dialog.exec();
+}
+
+// ---------------------- GRAPHS --------------------------
+void MainWindow::onGraphClicked()
+{
+    GraphDialog dialog(this);
+
+    dialog.setWindowTitle("Real-Time Server Graph");
+    dialog.resize(800, 500);
+
+    // 🔥 FIX: pass pointer (VERY IMPORTANT)
+    dialog.setData(&servers);
+
+    dialog.exec();
 }
