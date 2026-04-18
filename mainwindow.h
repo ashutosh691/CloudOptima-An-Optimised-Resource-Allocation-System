@@ -10,6 +10,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+// TASK
 struct Task {
     int id;
     QString query;
@@ -22,6 +23,7 @@ struct Task {
     QString status;
 };
 
+// SERVER
 struct Server {
     int id;
     int maxCPU, maxRAM, maxStorage;
@@ -29,14 +31,18 @@ struct Server {
 
     QVector<int> runningTasks;
     QVector<int> allTasks;
+
+    // For real-time graph
     QVector<int> cpuHistory;
 
+    // For stats
     int totalCPUHandled = 0;
     int totalRAMHandled = 0;
     int totalStorageHandled = 0;
     int totalProfitEarned = 0;
 };
 
+// MAIN WINDOW
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -63,13 +69,17 @@ private:
     QTimer *timer;
     static int tId;
 
+    // CORE FUNCTIONS
     void initializeServers();
-    void allocateTasks();
+    void allocateTasks();          // hybrid allocation
+    void extractTasksFromTable();
+
+    // UI UPDATE
     void updateTableUI();
     void updateServerUI();
-    void loadProfiles();
 
-    void extractTasksFromTable();
+    // DATA
+    void loadProfiles();
 };
 
-#endif
+#endif // MAINWINDOW_H

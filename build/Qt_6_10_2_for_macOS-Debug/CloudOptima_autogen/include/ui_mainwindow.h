@@ -203,19 +203,19 @@ public:
 
         cpuBar1 = new QProgressBar(server1Box);
         cpuBar1->setObjectName("cpuBar1");
-        cpuBar1->setValue(24);
+        cpuBar1->setValue(0);
 
         verticalLayout_6->addWidget(cpuBar1);
 
         ramBar1 = new QProgressBar(server1Box);
         ramBar1->setObjectName("ramBar1");
-        ramBar1->setValue(24);
+        ramBar1->setValue(0);
 
         verticalLayout_6->addWidget(ramBar1);
 
         storageBar1 = new QProgressBar(server1Box);
         storageBar1->setObjectName("storageBar1");
-        storageBar1->setValue(24);
+        storageBar1->setValue(0);
 
         verticalLayout_6->addWidget(storageBar1);
 
@@ -239,19 +239,19 @@ public:
 
         cpuBar2 = new QProgressBar(server2Box);
         cpuBar2->setObjectName("cpuBar2");
-        cpuBar2->setValue(24);
+        cpuBar2->setValue(0);
 
         verticalLayout_7->addWidget(cpuBar2);
 
         ramBar2 = new QProgressBar(server2Box);
         ramBar2->setObjectName("ramBar2");
-        ramBar2->setValue(24);
+        ramBar2->setValue(0);
 
         verticalLayout_7->addWidget(ramBar2);
 
         storageBar2 = new QProgressBar(server2Box);
         storageBar2->setObjectName("storageBar2");
-        storageBar2->setValue(24);
+        storageBar2->setValue(0);
 
         verticalLayout_7->addWidget(storageBar2);
 
@@ -275,19 +275,19 @@ public:
 
         cpuBar3 = new QProgressBar(server3Box);
         cpuBar3->setObjectName("cpuBar3");
-        cpuBar3->setValue(24);
+        cpuBar3->setValue(0);
 
         verticalLayout_8->addWidget(cpuBar3);
 
         ramBar3 = new QProgressBar(server3Box);
         ramBar3->setObjectName("ramBar3");
-        ramBar3->setValue(24);
+        ramBar3->setValue(0);
 
         verticalLayout_8->addWidget(ramBar3);
 
         storageBar3 = new QProgressBar(server3Box);
         storageBar3->setObjectName("storageBar3");
-        storageBar3->setValue(24);
+        storageBar3->setValue(0);
 
         verticalLayout_8->addWidget(storageBar3);
 
@@ -355,11 +355,11 @@ public:
         ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Status", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = taskTable->horizontalHeaderItem(7);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Server", nullptr));
-        server1Box->setTitle(QCoreApplication::translate("MainWindow", "Server 1", nullptr));
+        server1Box->setTitle(QString());
         server1Label->setText(QCoreApplication::translate("MainWindow", "Server 1 Usage", nullptr));
-        server2Box->setTitle(QCoreApplication::translate("MainWindow", "Server 2", nullptr));
+        server2Box->setTitle(QString());
         server2Label->setText(QCoreApplication::translate("MainWindow", "Server 2 Usage", nullptr));
-        server3Box->setTitle(QCoreApplication::translate("MainWindow", "Server 3", nullptr));
+        server3Box->setTitle(QString());
         server3Label->setText(QCoreApplication::translate("MainWindow", "Server 3 Usage", nullptr));
     } // retranslateUi
 

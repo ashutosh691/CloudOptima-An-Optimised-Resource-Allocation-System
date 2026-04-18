@@ -34,7 +34,7 @@ StatsDialog::~StatsDialog()
     delete ui;
 }
 
-// -------------------- SET DATA --------------------
+// SET DATA
 void StatsDialog::setData(const QVector<Server>& servers, const QVector<Task>& tasks)
 {
     for (int i = 0; i < servers.size(); i++)

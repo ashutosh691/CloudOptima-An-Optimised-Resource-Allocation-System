@@ -11,6 +11,11 @@
 #include <QComboBox>
 #include <QCoreApplication>
 #include <climits>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
 
 int MainWindow::tId = 1;
 
@@ -37,6 +42,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateSimulation);
+
+    // Progree Bar
+    qApp->setStyleSheet(R"(
+    QProgressBar {
+        border: 1px solid #555;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+        background-color: #2c2c2c;
+    }
+
+    QProgressBar::chunk {
+        background-color: #2196F3;
+    }
+    )");
 }
 
 MainWindow::~MainWindow()
@@ -44,7 +64,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// -------------------- ADD TASK --------------------
+// ADD TASK
 void MainWindow::onAddTaskClicked()
 {
     int row = ui->taskTable->rowCount();
@@ -84,7 +104,7 @@ void MainWindow::onAddTaskClicked()
     tId++;
 }
 
-// -------------------- EXTRACT --------------------
+// EXTRACT
 void MainWindow::extractTasksFromTable()
 {
     tasks.clear();
@@ -111,7 +131,7 @@ void MainWindow::extractTasksFromTable()
     }
 }
 
-// -------------------- RUN --------------------
+// RUN
 void MainWindow::onRunClicked()
 {
     extractTasksFromTable();
@@ -125,7 +145,7 @@ void MainWindow::onRunClicked()
     timer->start(1000);
 }
 
-// -------------------- SIMULATION --------------------
+// SIMULATION
 void MainWindow::updateSimulation()
 {
     // Step 1: Execute running tasks
@@ -196,9 +216,98 @@ void MainWindow::updateSimulation()
     }
 }
 
-// -------------------- ALLOCATION --------------------
+// ALLOCATION
 void MainWindow::allocateTasks()
 {
+    // STEP 1: Priority Sorting
+    vector<int> order(tasks.size());
+    iota(order.begin(), order.end(), 0);
+
+    sort(order.begin(), order.end(), [&](int a, int b) {
+        double pa = (double)tasks[a].profit /
+                    max(1, tasks[a].cpu + tasks[a].ram + tasks[a].storage);
+        double pb = (double)tasks[b].profit /
+                    max(1, tasks[b].cpu + tasks[b].ram + tasks[b].storage);
+        return pa > pb;
+    });
+
+    vector<bool> assigned(tasks.size(), false);
+
+    // STEP 2: Knapsack per Server
+    for (auto &s : servers)
+    {
+        int maxCPU = s.maxCPU - s.usedCPU;
+        int maxRAM = s.maxRAM - s.usedRAM;
+
+        int n = tasks.size();
+
+        vector<vector<int>> dp(maxCPU + 1, vector<int>(maxRAM + 1, 0));
+
+        vector<vector<vector<bool>>> take(n,
+                                          vector<vector<bool>>(maxCPU + 1, vector<bool>(maxRAM + 1, false)));
+
+        for (int idx = 0; idx < n; idx++)
+        {
+            int i = order[idx];
+            if (tasks[i].status != "Waiting") continue;
+
+            for (int c = maxCPU; c >= tasks[i].cpu; c--)
+            {
+                for (int r = maxRAM; r >= tasks[i].ram; r--)
+                {
+                    int val = tasks[i].profit + dp[c - tasks[i].cpu][r - tasks[i].ram];
+
+                    if (val > dp[c][r])
+                    {
+                        dp[c][r] = val;
+                        take[i][c][r] = true;
+                    }
+                }
+            }
+        }
+
+        int c = maxCPU, r = maxRAM;
+
+        for (int idx = n - 1; idx >= 0; idx--)
+        {
+            int i = order[idx];
+            if (tasks[i].status != "Waiting") continue;
+
+            if (c >= tasks[i].cpu && r >= tasks[i].ram && take[i][c][r])
+            {
+                s.usedCPU += tasks[i].cpu;
+                s.usedRAM += tasks[i].ram;
+                s.usedStorage += tasks[i].storage;
+
+                s.runningTasks.push_back(i);
+                s.allTasks.push_back(i);
+
+                // stats update
+                s.totalCPUHandled += tasks[i].cpu;
+                s.totalRAMHandled += tasks[i].ram;
+                s.totalStorageHandled += tasks[i].storage;
+                s.totalProfitEarned += tasks[i].profit;
+
+                tasks[i].status = "Running";
+                assigned[i] = true;
+
+                // SAFE UI UPDATE (FIXED)
+                for (int row = 0; row < ui->taskTable->rowCount(); row++)
+                {
+                    if (ui->taskTable->item(row, 0)->text().toInt() == tasks[i].id)
+                    {
+                        ui->taskTable->item(row, 7)->setText("Server " + QString::number(s.id));
+                        break;
+                    }
+                }
+
+                c -= tasks[i].cpu;
+                r -= tasks[i].ram;
+            }
+        }
+    }
+
+    // STEP 3: Greedy Fallback
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].status != "Waiting") continue;
@@ -231,17 +340,32 @@ void MainWindow::allocateTasks()
             s.usedCPU += tasks[i].cpu;
             s.usedRAM += tasks[i].ram;
             s.usedStorage += tasks[i].storage;
+
             s.runningTasks.push_back(i);
             s.allTasks.push_back(i);
 
+            // stats update
+            s.totalCPUHandled += tasks[i].cpu;
+            s.totalRAMHandled += tasks[i].ram;
+            s.totalStorageHandled += tasks[i].storage;
+            s.totalProfitEarned += tasks[i].profit;
+
             tasks[i].status = "Running";
 
-            ui->taskTable->item(i, 7)->setText("Server " + QString::number(s.id));
+            // SAFE UI UPDATE (FIXED)
+            for (int row = 0; row < ui->taskTable->rowCount(); row++)
+            {
+                if (ui->taskTable->item(row, 0)->text().toInt() == tasks[i].id)
+                {
+                    ui->taskTable->item(row, 7)->setText("Server " + QString::number(s.id));
+                    break;
+                }
+            }
         }
     }
 }
 
-// -------------------- TABLE UI --------------------
+// TABLE UI
 void MainWindow::updateTableUI()
 {
     for (int i = 0; i < tasks.size(); i++)
@@ -260,7 +384,7 @@ void MainWindow::updateTableUI()
     }
 }
 
-// -------------------- SERVER INIT --------------------
+// SERVER INIT
 void MainWindow::initializeServers()
 {
     servers = {
@@ -270,26 +394,35 @@ void MainWindow::initializeServers()
     };
 }
 
-// -------------------- SERVER UI --------------------
+// SERVER UI
 void MainWindow::updateServerUI()
 {
+    auto setupBar = [](QProgressBar *bar, const QString &label, int value)
+    {
+        bar->setTextVisible(true);
+        bar->setAlignment(Qt::AlignCenter);
+
+        bar->setFormat(label + ": %p%");
+        bar->setValue(value);
+    };
+
     // Server 1
-    ui->cpuBar1->setValue(servers[0].usedCPU * 100 / servers[0].maxCPU);
-    ui->ramBar1->setValue(servers[0].usedRAM * 100 / servers[0].maxRAM);
-    ui->storageBar1->setValue(servers[0].usedStorage * 100 / servers[0].maxStorage);
+    setupBar(ui->cpuBar1, "CPU", servers[0].usedCPU * 100 / servers[0].maxCPU);
+    setupBar(ui->ramBar1, "RAM", servers[0].usedRAM * 100 / servers[0].maxRAM);
+    setupBar(ui->storageBar1, "Storage", servers[0].usedStorage * 100 / servers[0].maxStorage);
 
     // Server 2
-    ui->cpuBar2->setValue(servers[1].usedCPU * 100 / servers[1].maxCPU);
-    ui->ramBar2->setValue(servers[1].usedRAM * 100 / servers[1].maxRAM);
-    ui->storageBar2->setValue(servers[1].usedStorage * 100 / servers[1].maxStorage);
+    setupBar(ui->cpuBar2, "CPU", servers[1].usedCPU * 100 / servers[1].maxCPU);
+    setupBar(ui->ramBar2, "RAM", servers[1].usedRAM * 100 / servers[1].maxRAM);
+    setupBar(ui->storageBar2, "Storage", servers[1].usedStorage * 100 / servers[1].maxStorage);
 
     // Server 3
-    ui->cpuBar3->setValue(servers[2].usedCPU * 100 / servers[2].maxCPU);
-    ui->ramBar3->setValue(servers[2].usedRAM * 100 / servers[2].maxRAM);
-    ui->storageBar3->setValue(servers[2].usedStorage * 100 / servers[2].maxStorage);
+    setupBar(ui->cpuBar3, "CPU", servers[2].usedCPU * 100 / servers[2].maxCPU);
+    setupBar(ui->ramBar3, "RAM", servers[2].usedRAM * 100 / servers[2].maxRAM);
+    setupBar(ui->storageBar3, "Storage", servers[2].usedStorage * 100 / servers[2].maxStorage);
 }
 
-// -------------------- RESET --------------------
+// RESET
 void MainWindow::onResetClicked()
 {
     timer->stop();
@@ -300,7 +433,7 @@ void MainWindow::onResetClicked()
     updateServerUI();
 }
 
-// -------------------- LOAD PROFILES --------------------
+// LOAD PROFILES
 void MainWindow::loadProfiles()
 {
     QFile file(QCoreApplication::applicationDirPath() + "/profiles.txt");
@@ -339,7 +472,7 @@ void MainWindow::loadProfiles()
     }
 }
 
-// ---------------------- STATS ---------------------------
+// STATS
 void MainWindow::onStatsClicked()
 {
     StatsDialog dialog(this);
@@ -352,7 +485,7 @@ void MainWindow::onStatsClicked()
     dialog.exec();
 }
 
-// ---------------------- GRAPHS --------------------------
+// GRAPHS
 void MainWindow::onGraphClicked()
 {
     GraphDialog dialog(this);
@@ -360,7 +493,7 @@ void MainWindow::onGraphClicked()
     dialog.setWindowTitle("Real-Time Server Graph");
     dialog.resize(800, 500);
 
-    // 🔥 FIX: pass pointer (VERY IMPORTANT)
+    // FIX: pass pointer (VERY IMPORTANT)
     dialog.setData(&servers);
 
     dialog.exec();
