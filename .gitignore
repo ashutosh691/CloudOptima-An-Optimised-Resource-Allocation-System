@@ -1,9 +1,0 @@
-# Qt / build files
-build/
-.qtcreator/
-*.user
-*.log
-*.app
-CMakeFiles/
-.ninja_deps
-.ninja_log
