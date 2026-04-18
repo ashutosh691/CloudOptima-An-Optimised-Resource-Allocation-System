@@ -48,7 +48,7 @@ void StatsDialog::setData(const QVector<Server>& servers, const QVector<Task>& t
         QString taskList = "";
         int totalProfit = 0;
 
-        for (int idx : s.allTasks)   // IMPORTANT CHANGE
+        for (int idx : s.allTasks)
         {
             QString status = tasks[idx].status;
 
