@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_CloudOptima_FILE /Users/ashutoshupreti/Desktop/QTP/CloudOptima/build/Qt_6_10_2_for_macOS-Debug/CloudOptima.app/Contents/MacOS/CloudOptima)
+set(__QT_DEPLOY_TARGET_CloudOptima_TYPE EXECUTABLE)

@@ -1,0 +1,12 @@
+# query,cpu,ram,storage,profit,time
+
+Web Hosting,2,4,20,100,3
+Database Query,4,6,30,200,4
+Cloud Backup,3,4,50,120,5
+Data Analytics,6,8,40,300,6
+Video Encoding,8,12,80,400,7
+Machine Learning,10,16,100,500,8
+Image Processing,5,8,60,250,5
+Log Processing,3,6,40,180,4
+Streaming Service,7,10,90,350,6
+Email Server,2,4,20,90,3

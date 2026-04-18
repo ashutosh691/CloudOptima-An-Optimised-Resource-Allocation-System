@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateSimulation);
 
-    // Progree Bar
+    // Progress Bar
     qApp->setStyleSheet(R"(
     QProgressBar {
         border: 1px solid #555;

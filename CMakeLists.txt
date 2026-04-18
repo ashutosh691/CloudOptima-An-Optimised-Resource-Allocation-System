@@ -20,6 +20,8 @@ qt_add_executable(CloudOptima
     graphdialog.h
     graphdialog.cpp
     graphdialog.ui
+    build/Qt_6_10_2_for_macOS-Debug/CloudOptima.app/Contents/MacOS/profiles.txt
+
 )
 
 # 🔥 LINK Charts here
