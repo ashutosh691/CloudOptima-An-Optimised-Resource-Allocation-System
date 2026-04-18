@@ -493,7 +493,7 @@ void MainWindow::onGraphClicked()
     dialog.setWindowTitle("Real-Time Server Graph");
     dialog.resize(800, 500);
 
-    // FIX: pass pointer (VERY IMPORTANT)
+    // pass pointer
     dialog.setData(&servers);
 
     dialog.exec();
