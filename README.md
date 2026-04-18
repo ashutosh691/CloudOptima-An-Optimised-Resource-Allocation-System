@@ -1,160 +1,185 @@
-# ☁️ CloudOptima – Cloud Resource Allocation System
+# 🚀 CloudOptima – Smart Resource Allocation Simulator
 
-## 📌 Overview
-
-CloudOptima is a GUI-based application built using **Qt (C++)** that simulates a cloud resource allocation system. It allows users to define tasks with CPU, RAM, and Profit values, and optimally allocates resources using the **0/1 Knapsack Algorithm (Dynamic Programming)**.
-
-The system helps in selecting the most profitable set of tasks under given resource constraints.
+A **Qt-based desktop application** that simulates cloud resource allocation using multiple algorithmic strategies such as **Greedy, Priority Scheduling, and 2D Knapsack (Dynamic Programming)**.
 
 ---
 
-## 🎯 Objectives
+## 📌 Project Overview
 
-* Simulate a real-world cloud resource allocation system
-* Apply **DAA concepts (0/1 Knapsack with multiple constraints)**
-* Provide a **visual and interactive GUI**
-* Display optimal task selection with resource usage
+CloudOptima is designed to demonstrate how tasks can be efficiently allocated to servers under resource constraints (CPU, RAM, Storage).
 
----
+It provides:
 
-## 🛠️ Technologies Used
-
-* **Language:** C++
-* **Framework:** Qt (Qt Widgets)
-* **Concepts:** Data Structures & Algorithms (Dynamic Programming)
-* **IDE:** Qt Creator
+* 📊 Real-time simulation of task execution
+* 📈 Live graph visualization
+* 📋 Detailed statistics dashboard
+* ⚙️ Hybrid algorithm-based allocation
 
 ---
 
-## 🚀 Features
+## 🧠 Algorithms Used
 
-### ✅ Phase 1 – GUI Development
+### 🔹 1. Greedy Algorithm (Best-Fit)
 
-* Add Task Dialog (Task ID, CPU, RAM, Profit)
-* Task Table View
-* Buttons: Add Task, Run Allocation, Reset
-
-### ✅ Phase 2 – Allocation Engine
-
-* Multi-dimensional **0/1 Knapsack (CPU + RAM)**
-* Optimal task selection
-* Backtracking to identify selected tasks
-* Highlight selected tasks in UI
-* Display:
-
-  * Total CPU Used
-  * Total RAM Used
-  * Maximum Profit
-
-### 🔜 Phase 3 – Final Enhancements
-
-* Cloud Plan Selection (Basic / Standard / Premium)
-* Dynamic resource allocation based on selected plan
-* Improved UI layout and branding
+* Assigns tasks to the server with minimum resource wastage
+* Fast and efficient
+* Used as fallback strategy
 
 ---
 
-## 🧠 Algorithm Used
+### 🔹 2. Priority Scheduling
 
-### 0/1 Knapsack (2 Constraints)
+* Tasks are sorted based on:
 
-We use **Dynamic Programming** to maximize profit under CPU and RAM limits.
+  ```
+  priority = profit / (cpu + ram + storage)
+  ```
+* Ensures high-value tasks are processed first
 
-State definition:
+---
+
+### 🔹 3. 2D Knapsack (Dynamic Programming)
+
+* Applied per server
+* Maximizes total profit under CPU & RAM constraints
+* Provides near-optimal allocation
+
+---
+
+### 🔹 4. Hybrid Approach
+
+Final pipeline:
 
 ```
-dp[i][c][r]
+Priority Sorting → Knapsack Allocation → Greedy Fallback
 ```
-
-Where:
-
-* `i` = number of tasks considered
-* `c` = CPU capacity
-* `r` = RAM capacity
-
-Transition:
-
-```
-dp[i][c][r] = max(
-    dp[i-1][c][r],
-    profit[i] + dp[i-1][c - cpu[i]][r - ram[i]]
-)
-```
-
-Backtracking is used to determine which tasks were selected.
 
 ---
 
-## 🖥️ How It Works
+## 🏗️ System Architecture
 
-1. User adds tasks using the dialog
-2. Tasks appear in the table
-3. User selects a cloud plan (Phase 3)
-4. Click **Run Allocation**
-5. System:
-
-   * Runs DP algorithm
-   * Selects optimal tasks
-   * Highlights them
-   * Displays resource usage and profit
-
----
-
-## 📊 Example
-
-| Task ID | CPU | RAM | Profit |
-| ------- | --- | --- | ------ |
-| 1       | 2   | 4   | 10     |
-| 2       | 3   | 6   | 15     |
-| 3       | 1   | 2   | 5      |
-
-For a given capacity, the system selects the most profitable subset.
+```
+User Input (Tasks)
+        ↓
+Task Extraction
+        ↓
+Priority Sorting
+        ↓
+Knapsack Allocation (per server)
+        ↓
+Greedy Allocation (remaining tasks)
+        ↓
+Simulation Engine (QTimer)
+        ↓
+UI + Graph + Stats Update
+```
 
 ---
 
-## 📂 Project Structure
+## 💻 Features
+
+* ✅ Add tasks using dropdown (profiles.txt)
+* ✅ Real-time task execution simulation
+* ✅ Server resource monitoring (CPU, RAM, Storage)
+* ✅ Live graph visualization (Qt Charts)
+* ✅ Statistics dashboard
+* ✅ Task-to-server mapping
+* ✅ Dark-theme compatible UI
+
+---
+
+## 📊 Screenshots
+
+### 🔹 Main Interface
+
+![Main UI](screenshots/main_ui.png)
+
+### 🔹 Statistics Dashboard
+
+![Stats](screenshots/stats.png)
+
+### 🔹 Real-Time Graph
+
+![Graph](screenshots/graph.png)
+
+---
+
+## ⚙️ Technologies Used
+
+* **C++**
+* **Qt 6 (Qt Widgets + Qt Charts)**
+* **CMake**
+* **Data Structures & Algorithms**
+
+---
+
+## 📁 Project Structure
 
 ```
 CloudOptima/
 │
 ├── main.cpp
 ├── mainwindow.cpp / .h / .ui
-├── addtaskdialog.cpp / .h / .ui
+├── statsdialog.cpp / .h / .ui
+├── graphdialog.cpp / .h / .ui
+├── profiles.txt
 ├── CMakeLists.txt
 └── README.md
 ```
 
 ---
 
-## 🧪 How to Run
+## ▶️ How to Run
 
-1. Open project in **Qt Creator**
-2. Configure kit (Qt 6.x recommended)
-3. Build and Run
-4. Use GUI to add tasks and run allocation
+### 🔧 Requirements
 
----
-
-## 🎓 Learning Outcomes
-
-* Understanding of **0/1 Knapsack with multiple constraints**
-* Integration of **algorithms with GUI**
-* Practical implementation of **resource allocation problems**
-* Experience with **Qt framework**
+* Qt 6.5+
+* CMake 3.19+
+* C++ Compiler (GCC / Clang)
 
 ---
 
-## 📌 Future Scope
+### 🛠️ Build Steps
 
-* Add Greedy algorithm comparison
-* Graphical performance analysis
-* Real-time resource monitoring
-* Integration with cloud APIs
+```bash
+git clone https://github.com/your-username/CloudOptima.git
+cd CloudOptima
+mkdir build
+cd build
+cmake ..
+make
+./CloudOptima
+```
 
 ---
 
-## 📜 License
+## 📈 Learning Outcomes
 
-This project is for academic purposes.
+* Implementation of **Greedy & Dynamic Programming**
+* Understanding of **resource allocation problems**
+* Experience with **Qt GUI development**
+* Real-time system simulation using **QTimer**
+* Data visualization using **Qt Charts**
+
+---
+
+## 🎯 Future Enhancements
+
+* 🔄 Algorithm comparison mode
+* 📊 CPU/RAM/Storage toggle in graph
+* ⚡ Load balancing using Min-Heap
+* 🌐 Cloud deployment simulation
+
+---
+
+## ⭐ Conclusion
+
+CloudOptima demonstrates how multiple algorithms can be combined to solve real-world resource allocation problems efficiently while providing a visual and interactive experience.
+
+---
+
+## 📎 License
+
+This project is for educational purposes.
 
 ---

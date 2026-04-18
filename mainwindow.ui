@@ -221,7 +221,7 @@
                 </size>
                </property>
                <property name="title">
-                <string>Server 1</string>
+                <string/>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_9">
                 <item>
@@ -236,21 +236,21 @@
                   <item>
                    <widget class="QProgressBar" name="cpuBar1">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="ramBar1">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="storageBar1">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -268,7 +268,7 @@
                 </size>
                </property>
                <property name="title">
-                <string>Server 2</string>
+                <string/>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <item>
@@ -283,21 +283,21 @@
                   <item>
                    <widget class="QProgressBar" name="cpuBar2">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="ramBar2">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="storageBar2">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -315,7 +315,7 @@
                 </size>
                </property>
                <property name="title">
-                <string>Server 3</string>
+                <string/>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
@@ -330,21 +330,21 @@
                   <item>
                    <widget class="QProgressBar" name="cpuBar3">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="ramBar3">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QProgressBar" name="storageBar3">
                     <property name="value">
-                     <number>24</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
