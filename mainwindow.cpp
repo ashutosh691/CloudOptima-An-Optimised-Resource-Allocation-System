@@ -471,5 +471,30 @@ void MainWindow::loadProfiles()
         profileMap[t.query] = t;
     }
 }
+// STATS
+void MainWindow::onStatsClicked()
+{
+    StatsDialog dialog(this);
 
+    dialog.setWindowTitle("System Statistics");
+
+    dialog.resize(800, 500);   // 900x600
+
+    dialog.setData(servers, tasks);
+    dialog.exec();
+}
+
+// GRAPHS
+void MainWindow::onGraphClicked()
+{
+    GraphDialog dialog(this);
+
+    dialog.setWindowTitle("Real-Time Server Graph");
+    dialog.resize(800, 500);
+
+    // pass pointer
+    dialog.setData(&servers);
+
+    dialog.exec();
+}
 
