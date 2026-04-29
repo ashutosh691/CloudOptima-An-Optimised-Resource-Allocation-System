@@ -64,7 +64,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// ADD TASK
+// Add task
 void MainWindow::onAddTaskClicked()
 {
     int row = ui->taskTable->rowCount();
@@ -104,7 +104,7 @@ void MainWindow::onAddTaskClicked()
     tId++;
 }
 
-// EXTRACT
+// Extraction of task for usage in data struct
 void MainWindow::extractTasksFromTable()
 {
     tasks.clear();
@@ -131,7 +131,7 @@ void MainWindow::extractTasksFromTable()
     }
 }
 
-// RUN
+// run button click 
 void MainWindow::onRunClicked()
 {
     extractTasksFromTable();
@@ -145,10 +145,10 @@ void MainWindow::onRunClicked()
     timer->start(1000);
 }
 
-// SIMULATION
+// updation of tasks current values
 void MainWindow::updateSimulation()
 {
-    // Step 1: Execute running tasks
+    // Execute running tasks
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].status == "Running")
@@ -176,14 +176,14 @@ void MainWindow::updateSimulation()
         }
     }
 
-    // Step 2: Allocate
+    // Allocate
     allocateTasks();
 
-    // Step 3: Update UI
+    // Update UI
     updateTableUI();
     updateServerUI();
 
-    // Step 4: Check completion
+    // Check completion
     bool allDone = true;
 
     for (const auto &t : tasks)
@@ -216,10 +216,10 @@ void MainWindow::updateSimulation()
     }
 }
 
-// ALLOCATION
+// Allocation of tasks using different algos
 void MainWindow::allocateTasks()
 {
-    // STEP 1: Priority Sorting
+    // Priority Sorting
     vector<int> order(tasks.size());
     iota(order.begin(), order.end(), 0);
 
@@ -233,7 +233,7 @@ void MainWindow::allocateTasks()
 
     vector<bool> assigned(tasks.size(), false);
 
-    // STEP 2: Knapsack per Server
+    // Knapsack per Server
     for (auto &s : servers)
     {
         int maxCPU = s.maxCPU - s.usedCPU;
@@ -291,7 +291,7 @@ void MainWindow::allocateTasks()
                 tasks[i].status = "Running";
                 assigned[i] = true;
 
-                // SAFE UI UPDATE (FIXED)
+                // ui update
                 for (int row = 0; row < ui->taskTable->rowCount(); row++)
                 {
                     if (ui->taskTable->item(row, 0)->text().toInt() == tasks[i].id)
@@ -307,7 +307,7 @@ void MainWindow::allocateTasks()
         }
     }
 
-    // STEP 3: Greedy Fallback
+    // Greedy for storage
     for (int i = 0; i < tasks.size(); i++)
     {
         if (tasks[i].status != "Waiting") continue;
@@ -352,7 +352,7 @@ void MainWindow::allocateTasks()
 
             tasks[i].status = "Running";
 
-            // SAFE UI UPDATE (FIXED)
+            // ui update
             for (int row = 0; row < ui->taskTable->rowCount(); row++)
             {
                 if (ui->taskTable->item(row, 0)->text().toInt() == tasks[i].id)
@@ -365,7 +365,7 @@ void MainWindow::allocateTasks()
     }
 }
 
-// TABLE UI
+// table ui
 void MainWindow::updateTableUI()
 {
     for (int i = 0; i < tasks.size(); i++)
@@ -384,7 +384,7 @@ void MainWindow::updateTableUI()
     }
 }
 
-// SERVER INIT
+// server values
 void MainWindow::initializeServers()
 {
     servers = {
@@ -394,7 +394,7 @@ void MainWindow::initializeServers()
     };
 }
 
-// SERVER UI
+// server ui
 void MainWindow::updateServerUI()
 {
     auto setupBar = [](QProgressBar *bar, const QString &label, int value)
@@ -422,7 +422,7 @@ void MainWindow::updateServerUI()
     setupBar(ui->storageBar3, "Storage", servers[2].usedStorage * 100 / servers[2].maxStorage);
 }
 
-// RESET
+// reset
 void MainWindow::onResetClicked()
 {
     timer->stop();
@@ -433,7 +433,7 @@ void MainWindow::onResetClicked()
     updateServerUI();
 }
 
-// LOAD PROFILES
+// load queries 
 void MainWindow::loadProfiles()
 {
     QFile file(QCoreApplication::applicationDirPath() + "/profiles.txt");
@@ -471,7 +471,7 @@ void MainWindow::loadProfiles()
         profileMap[t.query] = t;
     }
 }
-// STATS
+// stats
 void MainWindow::onStatsClicked()
 {
     StatsDialog dialog(this);
@@ -484,7 +484,7 @@ void MainWindow::onStatsClicked()
     dialog.exec();
 }
 
-// GRAPHS
+// graphs 
 void MainWindow::onGraphClicked()
 {
     GraphDialog dialog(this);
