@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 project(CloudOptima LANGUAGES CXX)
 
-# 🔥 ADD Charts here
+# Add Charts here
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Charts)
 
 qt_standard_project_setup()
@@ -24,7 +24,7 @@ qt_add_executable(CloudOptima
 
 )
 
-# 🔥 LINK Charts here
+# Link Charts here
 target_link_libraries(CloudOptima
     PRIVATE
         Qt6::Core
